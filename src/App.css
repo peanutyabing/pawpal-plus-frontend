@@ -1,3 +1,8 @@
+* {
+  font-family: "Nunito", sans-serif;
+  font-size: calc(10px + 2vmin);
+}
+
 .App {
   text-align: center;
 }
@@ -8,12 +13,64 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ff5722;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+}
+
+/* Utility  */
+.x-large {
+  font-size: calc(10px + 4vmin);
+}
+
+.large {
+  font-size: calc(10px + 3vmin);
+}
+
+.medium {
+  font-size: calc(10px + 2vmin);
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.x-bold {
+  font-weight: 700;
+}
+
+.navbar-nav {
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.navbar-nav > a {
+  width: 32%;
+  text-align: center;
+}
+
+.navbar-nav > a:hover {
+  background-color: #eeeeee;
+  color: #222831;
+}
+
+.carousel {
+  width: 100%;
+  min-height: 50vh;
+  margin: 2vmin 0;
+}
+
+.carousel-item {
+  height: 50vh;
+}
+
+.profile-sm {
+  object-fit: cover;
+  width: 30vh;
+  height: 30vh;
+  border-radius: 50%;
 }
