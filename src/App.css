@@ -22,7 +22,7 @@
   color: white;
 }
 
-/* Utility  */
+/* Utilities  */
 .x-large {
   font-size: calc(10px + 4vmin);
 }
@@ -35,6 +35,10 @@
   font-size: calc(10px + 2vmin);
 }
 
+.small {
+  font-size: calc(10px + 1vmin);
+}
+
 .bold {
   font-weight: 600;
 }
@@ -43,6 +47,29 @@
   font-weight: 700;
 }
 
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.margin-tb-m {
+  margin: 2vmin 0;
+}
+
+.margin-lr-m {
+  margin: 0 2vmin;
+}
+
+.margin-tb-sm {
+  margin: 1vmin 0;
+}
+
+.margin-lr-sm {
+  margin: 0 1vmin;
+}
+
+/* Navbar */
 .navbar-nav {
   justify-content: space-evenly;
   width: 100%;
@@ -58,6 +85,8 @@
   color: #222831;
 }
 
+/* My pets */
+
 .carousel {
   width: 100%;
   min-height: 50vh;
@@ -66,11 +95,40 @@
 
 .carousel-item {
   height: 50vh;
+  cursor: pointer;
 }
 
-.profile-sm {
+.profile-lg {
   object-fit: cover;
   width: 30vh;
   height: 30vh;
   border-radius: 50%;
 }
+
+/* Pet events */
+
+.profile-sm {
+  object-fit: cover;
+  width: 15vh;
+  height: 15vh;
+  border-radius: 50%;
+}
+
+.events-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  max-width: 500px;
+  padding: 1vmin;
+  border-radius: 1vmin;
+}
+
+/* .today {
+  border: 0.5px #eeeeee solid;
+}
+
+.past {
+  background-color: #eeeeee20;
+} */

@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export default function Navigation() {
@@ -11,10 +11,10 @@ export default function Navigation() {
         <Nav.Link>Feed</Nav.Link>
         <Nav.Link
           onClick={() => {
-            navigate("my-pet");
+            navigate("/my-pets");
           }}
         >
-          My pet
+          My pets
         </Nav.Link>
       </Nav>
     </Navbar>

@@ -2,9 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.js";
-import MyPet from "./Components/MyPet.js";
+import MyPets from "./Components/MyPets.js";
 import Navigation from "./Components/Navigation.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Events from "./Components/Events";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -12,7 +13,8 @@ root.render(
     <Navigation />
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/my-pet" element={<MyPet />} />
+      <Route path="/my-pets" element={<MyPets />} />
+      <Route path="/my-pets/:petId" element={<Events />} />
     </Routes>
   </BrowserRouter>
 );
