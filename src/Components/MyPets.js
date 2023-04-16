@@ -4,6 +4,7 @@ import axios from "axios";
 import { BACKEND_URL, USERID } from "../Constants.js";
 import Carousel from "react-bootstrap/Carousel";
 import { calculateAge } from "../Utils.js";
+import { PlusCircleFill } from "react-bootstrap-icons";
 
 export default function MyPets() {
   const PLACEHOLDER_PIC =
@@ -20,14 +21,6 @@ export default function MyPets() {
   const retrievePets = async () => {
     const pets = await axios.get(`${BACKEND_URL}/users/${USERID}/pets/`);
     setMyPets(pets.data);
-  };
-
-  const displayHeader = () => {
-    if (myPets.length === 1) {
-      return <h1 className="x-large x-bold">My furry friend</h1>;
-    } else {
-      return <h1 className="x-large x-bold">My furry friends</h1>;
-    }
   };
 
   const displayPets = () => {
@@ -62,7 +55,6 @@ export default function MyPets() {
     <div className="App">
       <header className="App-header">
         {/* Note: authenticated users see a summary of pet profiles */}
-        {displayHeader()}
         <Carousel
           activeIndex={index}
           onSelect={handleSelect}
@@ -71,6 +63,14 @@ export default function MyPets() {
         >
           {displayPets()}
         </Carousel>
+        <div className="btn-container">
+          <PlusCircleFill
+            className="custom-btn"
+            onClick={() => {
+              navigate("/my-pets/add-pet");
+            }}
+          />
+        </div>
       </header>
     </div>
   );

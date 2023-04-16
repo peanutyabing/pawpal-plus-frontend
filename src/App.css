@@ -47,6 +47,10 @@
   font-weight: 700;
 }
 
+.dark {
+  color: #222831;
+}
+
 .flex-container {
   display: flex;
   align-items: center;
@@ -70,6 +74,10 @@
 }
 
 /* Navbar */
+.navbar {
+  max-height: 9vh;
+}
+
 .navbar-nav {
   justify-content: space-evenly;
   width: 100%;
@@ -86,15 +94,14 @@
 }
 
 /* My pets */
-
 .carousel {
   width: 100%;
-  min-height: 50vh;
+  min-height: 60vh;
   margin: 2vmin 0;
 }
 
 .carousel-item {
-  height: 50vh;
+  min-height: 60vh;
   cursor: pointer;
 }
 
@@ -105,8 +112,12 @@
   border-radius: 50%;
 }
 
-/* Pet events */
+/* Pet form */
+.form-floating > label {
+  padding: 0.75rem;
+}
 
+/* Pet events */
 .profile-sm {
   object-fit: cover;
   width: 15vh;
@@ -125,10 +136,15 @@
   border-radius: 1vmin;
 }
 
-/* .today {
-  border: 0.5px #eeeeee solid;
+/* Buttons */
+.btn-container {
+  position: fixed;
+  right: 2vmin;
+  bottom: calc(60px + 3vmin);
 }
 
-.past {
-  background-color: #eeeeee20;
-} */
+.custom-btn {
+  cursor: pointer;
+  min-width: 30px;
+  min-height: 30px;
+}

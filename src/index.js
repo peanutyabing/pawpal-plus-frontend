@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App.js";
 import MyPets from "./Components/MyPets.js";
 import Navigation from "./Components/Navigation.js";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Events from "./Components/Events";
+import Events from "./Components/Events.js";
+import PetForm from "./Components/PetForm.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +15,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/my-pets" element={<MyPets />} />
+      <Route path="/my-pets/add-pet" element={<PetForm />} />
       <Route path="/my-pets/:petId" element={<Events />} />
     </Routes>
   </BrowserRouter>
