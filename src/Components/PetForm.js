@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { storage } from "../Firebase.js";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { Form, FloatingLabel, Button } from "react-bootstrap";
 import { BACKEND_URL, USERID } from "../Constants.js";
 
 export default function PetForm() {
+  const navigate = useNavigate();
   const [speciesList, setSpeciesList] = useState([]);
   const [breedsList, setBreedsList] = useState([]);
   const [profile, setProfile] = useState({
     speciesId: "",
     breedId: "",
     name: "",
-    imageUrl: "",
     dateOfBirth: "",
   });
+  const [imageFile, setImageFile] = useState("");
+  const [imageInputValue, setImageInputValue] = useState("");
 
   useEffect(() => {
     getSpecies();
@@ -46,15 +51,51 @@ export default function PetForm() {
   };
 
   const handleFileChange = (e) => {
-    // put the url in the profile object in state
-    // put the actual file in a separate state string
+    setImageInputValue(e.target.value);
+    setImageFile(e.target.files[0]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!profile.speciesId || !profile.name) {
+      alert("Please complete your pet's profile.");
+    }
+    uploadFile()
+      .then((imageUrl) => writeData(imageUrl))
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const uploadFile = async () => {
+    if (!imageFile) {
+      return Promise.resolve("");
+    }
+    const fileRef = ref(storage, `pet-profiles/${imageFile.name}`);
+    return uploadBytes(fileRef, imageFile).then(() => getDownloadURL(fileRef));
+  };
+
+  const writeData = async (imageUrl) => {
+    await axios.post(`${BACKEND_URL}/users/${USERID}/pets/`, {
+      ...profile,
+      imageUrl,
+    });
+    setProfile({
+      speciesId: "",
+      breedId: "",
+      name: "",
+      dateOfBirth: "",
+    });
+    setImageFile("");
+    setImageInputValue("");
+    navigate("/my-pets");
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1 className="x-large">New pet</h1>
-        <Form className="margin-lr-m">
+        <Form className="margin-lr-m" onSubmit={handleSubmit}>
           <Form.Group className="margin-tb-m">
             <Form.Select
               onChange={handleChange}
@@ -97,7 +138,7 @@ export default function PetForm() {
               <Form.Control
                 name="imageUrl"
                 type="file"
-                value={profile.imageUrl}
+                value={imageInputValue}
                 onChange={handleFileChange}
               />
             </FloatingLabel>
@@ -111,6 +152,11 @@ export default function PetForm() {
                 onChange={handleChange}
               />
             </FloatingLabel>
+          </Form.Group>
+          <Form.Group className="margin-tb-m">
+            <Button type="submit" variant="light">
+              Submit
+            </Button>
           </Form.Group>
         </Form>
       </header>

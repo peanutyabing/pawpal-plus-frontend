@@ -7,14 +7,10 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-header {
+  position: relative;
   background-color: #ff5722;
-  min-height: 100vh;
+  min-height: 92vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,7 +71,7 @@
 
 /* Navbar */
 .navbar {
-  max-height: 9vh;
+  max-height: 8vh;
 }
 
 .navbar-nav {
@@ -138,9 +134,12 @@
 
 /* Buttons */
 .btn-container {
-  position: fixed;
-  right: 2vmin;
-  bottom: calc(60px + 3vmin);
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  right: calc(10px + 1vmin);
+  bottom: calc(10px + 1vmin);
+  display: flex;
 }
 
 .custom-btn {
