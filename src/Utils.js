@@ -2,10 +2,15 @@ export const calculateAge = (dateOfBirth) => {
   const dob = new Date(dateOfBirth);
   const now = new Date();
   const ageInYears = (now - dob) / 1000 / 60 / 60 / 24 / 365;
-  if (ageInYears >= 1) {
+  if (ageInYears >= 2) {
     return `${Math.floor(ageInYears)} years old`;
+  } else if (ageInYears < 2 && ageInYears >= 1) {
+    return `${Math.floor(ageInYears)} year old`;
   } else {
     const ageInMonths = 12 * ageInYears;
+    if (ageInMonths <= 1) {
+      return "1 month old";
+    }
     return `${Math.floor(ageInMonths)} months old`;
   }
 };
