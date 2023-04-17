@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { BACKEND_URL } from "../Constants.js";
+import { BACKEND_URL, USERID } from "../Constants.js";
 import Carousel from "react-bootstrap/Carousel";
+import { calculateAge } from "../Utils.js";
+import { PlusCircleFill } from "react-bootstrap-icons";
 
-export default function MyPet() {
-  // Hard coded - to be replaced when auth is in place
-  const USERID = 1;
-
+export default function MyPets() {
   const PLACEHOLDER_PIC =
     "https://images.unsplash.com/photo-1606425271394-c3ca9aa1fc06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80";
 
   const [myPets, setMyPets] = useState([]);
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     retrievePets();
@@ -22,40 +23,28 @@ export default function MyPet() {
     setMyPets(pets.data);
   };
 
-  const displayHeader = () => {
-    if (myPets.length === 1) {
-      return <h1 className="x-large x-bold">My furry friend</h1>;
-    } else {
-      return <h1 className="x-large x-bold">My furry friends</h1>;
-    }
-  };
-
   const displayPets = () => {
+    if (!myPets.length) {
+      return;
+    }
     return myPets.map((pet) => (
-      <Carousel.Item key={pet.id}>
+      <Carousel.Item
+        key={pet.id}
+        onClick={() => {
+          navigate(`./${pet.id}`);
+        }}
+      >
         <img
-          className="profile-sm"
+          className="profile-lg"
           src={pet.imageUrl ? pet.imageUrl : PLACEHOLDER_PIC}
           alt={pet.name}
         />
         <Carousel.Caption>
           <h2 className="large bold">{pet.name}</h2>
-          <h3 className="medium">{calculateAge(pet)}</h3>
+          <h3 className="medium">{calculateAge(pet.dateOfBirth)}</h3>
         </Carousel.Caption>
       </Carousel.Item>
     ));
-  };
-
-  const calculateAge = (pet) => {
-    const dob = new Date(pet.dateOfBirth);
-    const now = new Date();
-    const ageInYears = (now - dob) / 1000 / 60 / 60 / 24 / 365;
-    if (ageInYears >= 1) {
-      return `${Math.floor(ageInYears)} years old`;
-    } else {
-      const ageInMonths = 12 * ageInYears;
-      return `${Math.floor(ageInMonths)} months old`;
-    }
   };
 
   const handleSelect = (selectedIndex, e) => {
@@ -66,7 +55,6 @@ export default function MyPet() {
     <div className="App">
       <header className="App-header">
         {/* Note: authenticated users see a summary of pet profiles */}
-        {displayHeader()}
         <Carousel
           activeIndex={index}
           onSelect={handleSelect}
@@ -75,6 +63,14 @@ export default function MyPet() {
         >
           {displayPets()}
         </Carousel>
+        <div className="btn-container">
+          <PlusCircleFill
+            className="custom-btn"
+            onClick={() => {
+              navigate("/my-pets/add-pet");
+            }}
+          />
+        </div>
       </header>
     </div>
   );
