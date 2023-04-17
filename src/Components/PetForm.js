@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { storage } from "../Firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { Form, FloatingLabel, Button } from "react-bootstrap";
+import { Form, FloatingLabel, Button, Spinner } from "react-bootstrap";
 import Select from "react-select";
 import { BACKEND_URL, USERID } from "../Constants.js";
 
@@ -19,6 +19,7 @@ export default function PetForm() {
   });
   const [imageFile, setImageFile] = useState("");
   const [imageInputValue, setImageInputValue] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     getSpecies();
@@ -64,6 +65,7 @@ export default function PetForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitting(true);
     if (!profile.speciesId || !profile.name) {
       alert("Please complete your pet's profile.");
     }
@@ -177,9 +179,22 @@ export default function PetForm() {
             </FloatingLabel>
           </Form.Group>
           <Form.Group className="margin-tb-m">
-            <Button type="submit" variant="light">
-              Submit
-            </Button>
+            {submitting ? (
+              <Button variant="light" disabled>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                <span className="visually-hidden">Submitting...</span>
+              </Button>
+            ) : (
+              <Button type="submit" variant="light">
+                Submit
+              </Button>
+            )}
           </Form.Group>
         </Form>
       </header>

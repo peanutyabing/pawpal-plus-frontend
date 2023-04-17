@@ -157,3 +157,7 @@
   min-width: 30px;
   min-height: 30px;
 }
+
+.btn-light {
+  width: calc(90px + 3vw);
+}
