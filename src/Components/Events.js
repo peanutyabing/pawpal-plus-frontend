@@ -17,7 +17,7 @@ export default function Events() {
     const profile = await axios.get(
       `${BACKEND_URL}/users/${USERID}/pets/${petId}`
     );
-    setPetProfile(profile.data);
+    setPetProfile(profile.data[0]);
   };
 
   const displayProfile = () => {
