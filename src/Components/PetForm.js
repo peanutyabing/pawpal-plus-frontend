@@ -4,6 +4,7 @@ import axios from "axios";
 import { storage } from "../Firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { Form, FloatingLabel, Button } from "react-bootstrap";
+import Select from "react-select";
 import { BACKEND_URL, USERID } from "../Constants.js";
 
 export default function PetForm() {
@@ -42,6 +43,12 @@ export default function PetForm() {
       `${BACKEND_URL}/users/${USERID}/pets/species/${profile.speciesId}/breeds`
     );
     setBreedsList(breeds.data);
+  };
+
+  const handleSelect = (selected) => {
+    const profileToUpdate = { ...profile };
+    profileToUpdate[selected.name] = selected.value;
+    setProfile(profileToUpdate);
   };
 
   const handleChange = (e) => {
@@ -97,32 +104,48 @@ export default function PetForm() {
         <h1 className="x-large">New pet</h1>
         <Form className="margin-lr-m" onSubmit={handleSubmit}>
           <Form.Group className="margin-tb-m">
-            <Form.Select
-              onChange={handleChange}
-              name="speciesId"
-              defaultValue=""
-            >
-              <option value="" disabled hidden>
-                What species is your pet?
-              </option>
-              {speciesList.map((oneSpecies) => (
-                <option key={oneSpecies.id} value={oneSpecies.id}>
-                  {oneSpecies.name}
-                </option>
-              ))}
-            </Form.Select>
+            <Select
+              className="react-select-container"
+              classNamePrefix="react-select"
+              placeholder="What species is your pet?"
+              isSearchable={true}
+              options={speciesList.map((oneSpecies) => {
+                return {
+                  value: oneSpecies.id,
+                  label: oneSpecies.name,
+                  name: "speciesId",
+                };
+              })}
+              onChange={handleSelect}
+              styles={{
+                option: (provided) => ({
+                  ...provided,
+                  color: "#222831",
+                }),
+              }}
+            />
           </Form.Group>
           <Form.Group className="margin-tb-m">
-            <Form.Select onChange={handleChange} name="breedId" defaultValue="">
-              <option value="" disabled hidden>
-                What breed is your pet?
-              </option>
-              {breedsList.map((breed) => (
-                <option key={breed.id} value={breed.id}>
-                  {breed.name}
-                </option>
-              ))}
-            </Form.Select>
+            <Select
+              className="react-select-container"
+              classNamePrefix="react-select"
+              placeholder="What breed best describes your pet?"
+              isSearchable={true}
+              options={breedsList.map((breed) => {
+                return {
+                  value: breed.id,
+                  label: breed.name,
+                  name: "breedId",
+                };
+              })}
+              onChange={handleSelect}
+              styles={{
+                option: (provided) => ({
+                  ...provided,
+                  color: "#222831",
+                }),
+              }}
+            />
           </Form.Group>
           <Form.Group className="margin-tb-m">
             <Form.Control
