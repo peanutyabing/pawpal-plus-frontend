@@ -53,6 +53,11 @@
   justify-content: center;
 }
 
+.flex-container-space-btw {
+  display: flex;
+  justify-content: space-between;
+}
+
 .margin-tb-m {
   margin: 2vmin 0;
 }
@@ -133,14 +138,21 @@
 }
 
 .events-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
+  width: 100%;
   max-width: 500px;
+}
+
+.accordion-button {
+  padding: 2vmin;
+}
+
+.day-events-container {
+  padding: 0;
+}
+
+.event-item {
   padding: 1vmin;
-  border-radius: 1vmin;
+  /* border: 0.5px #ffffff solid; */
 }
 
 /* Event form */
