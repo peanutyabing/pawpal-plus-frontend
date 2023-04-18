@@ -63,7 +63,7 @@ export default function MyPets() {
         >
           {displayPets()}
         </Carousel>
-        <div className="btn-container">
+        <div className="bottom-btn-container">
           <PlusCircleFill
             className="custom-btn"
             onClick={() => {

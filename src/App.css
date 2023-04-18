@@ -119,7 +119,8 @@
 
 .react-select__placeholder,
 .react-select__single-value,
-.react-select__menu {
+.react-select__menu,
+.form-check {
   text-align: start;
 }
 
@@ -142,14 +143,28 @@
   border-radius: 1vmin;
 }
 
+/* Event form */
+.form-check-input:checked {
+  background-color: #2d4059;
+  border-color: #2d4059;
+}
+
 /* Buttons */
-.btn-container {
+.bottom-btn-container {
   position: absolute;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   right: calc(10px + 1vmin);
   bottom: calc(10px + 1vmin);
+}
+
+.top-btn-container {
+  position: absolute;
   display: flex;
+  align-items: center;
+  top: 2vmin;
+  left: 2vmin;
 }
 
 .custom-btn {

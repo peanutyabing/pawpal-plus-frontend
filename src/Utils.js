@@ -21,10 +21,10 @@ export const calculateDuration = (petEvent) => {
   const durationInMins = (end - start) / 1000 / 60;
   if (durationInMins >= 60) {
     const durationInHours = Math.floor(durationInMins / 60);
-    const remainingMins = durationInMins - durationInHours * 60;
+    const remainingMins = Math.floor(durationInMins % 60);
     return `${durationInHours}h${remainingMins}min`;
   } else {
-    return `${durationInMins}min`;
+    return `${Math.floor(durationInMins)}min`;
   }
 };
 

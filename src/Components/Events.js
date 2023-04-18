@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL, USERID } from "../Constants.js";
 import { calculateAge, calculateDuration, sortEventsByDay } from "../Utils.js";
+import { PlusCircleFill, ArrowLeftShort } from "react-bootstrap-icons";
 
 export default function Events() {
   const { petId } = useParams();
+  const navigate = useNavigate();
 
   const [petProfile, setPetProfile] = useState({});
 
@@ -79,8 +81,25 @@ export default function Events() {
 
   return (
     <header className="App-header">
+      <div
+        className="top-btn-container bold"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <ArrowLeftShort />
+        Back
+      </div>
       {displayProfile()}
       {displayEvents()}
+      <div className="bottom-btn-container">
+        <PlusCircleFill
+          className="custom-btn"
+          onClick={() => {
+            navigate("./add-activity");
+          }}
+        />
+      </div>
     </header>
   );
 }
