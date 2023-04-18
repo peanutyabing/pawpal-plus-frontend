@@ -6,6 +6,7 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { Form, FloatingLabel, Button, Spinner } from "react-bootstrap";
 import Select from "react-select";
 import { BACKEND_URL, USERID } from "../Constants.js";
+import Alerts from "./Alerts.js";
 
 export default function PetForm() {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ export default function PetForm() {
   const [imageFile, setImageFile] = useState("");
   const [imageInputValue, setImageInputValue] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertKey, setAlertKey] = useState("");
 
   useEffect(() => {
     getSpecies();
@@ -65,10 +68,12 @@ export default function PetForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitting(true);
     if (!profile.speciesId || !profile.name) {
-      alert("Please complete your pet's profile.");
+      setShowAlert(true);
+      setAlertKey("petFormCompletion");
+      return;
     }
+    setSubmitting(true);
     uploadFile()
       .then((imageUrl) => writeData(imageUrl))
       .catch((error) => {
@@ -197,6 +202,13 @@ export default function PetForm() {
             )}
           </Form.Group>
         </Form>
+        <Alerts
+          showAlert={showAlert}
+          hideAlert={() => {
+            setShowAlert(false);
+          }}
+          alertKey={alertKey}
+        />
       </header>
     </div>
   );
