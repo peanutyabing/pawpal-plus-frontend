@@ -15,9 +15,16 @@ export const calculateAge = (dateOfBirth) => {
   }
 };
 
-export const calculateDuration = (petEvent) => {
-  const start = new Date(petEvent.startTime);
-  const end = new Date(petEvent.endTime);
+export const calculateDuration = (petEvent, byStartTime = true) => {
+  let start;
+  let end;
+  if (byStartTime) {
+    start = new Date(petEvent.startTime);
+    end = new Date(petEvent.endTime);
+  } else {
+    start = new Date(petEvent.createdAt);
+    end = new Date();
+  }
   const durationInMins = (end - start) / 1000 / 60;
   if (durationInMins >= 60) {
     const durationInHours = Math.floor(durationInMins / 60);

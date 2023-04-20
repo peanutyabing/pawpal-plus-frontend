@@ -5,6 +5,7 @@ import { BACKEND_URL, USERID } from "../Constants.js";
 import Carousel from "react-bootstrap/Carousel";
 import { calculateAge } from "../Utils.js";
 import { PlusCircleFill } from "react-bootstrap-icons";
+import Reminders from "./Reminders.js";
 
 export default function MyPets() {
   const PLACEHOLDER_PIC =
@@ -54,6 +55,7 @@ export default function MyPets() {
   return (
     <div className="App">
       <header className="App-header">
+        <Reminders />
         {/* Note: authenticated users see a summary of pet profiles */}
         <Carousel
           activeIndex={index}
