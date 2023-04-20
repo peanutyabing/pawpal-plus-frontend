@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL, USERID } from "../Constants.js";
 import { calculateAge, calculateDuration, sortEventsByDay } from "../Utils.js";
+import { Accordion, Badge } from "react-bootstrap";
+import { PlusCircleFill, ArrowLeftShort } from "react-bootstrap-icons";
 
 export default function Events() {
   const { petId } = useParams();
+  const navigate = useNavigate();
 
   const [petProfile, setPetProfile] = useState({});
+  const [petEvents, setPetEvents] = useState([]);
 
   useEffect(() => {
     retrievePetProfile();
@@ -18,6 +22,17 @@ export default function Events() {
       `${BACKEND_URL}/users/${USERID}/pets/${petId}`
     );
     setPetProfile(profile.data[0]);
+  };
+
+  useEffect(() => {
+    retrievePetEvents();
+  }, []);
+
+  const retrievePetEvents = async () => {
+    const events = await axios.get(
+      `${BACKEND_URL}/users/${USERID}/pets/${petId}/events`
+    );
+    setPetEvents(events.data);
   };
 
   const displayProfile = () => {
@@ -40,47 +55,85 @@ export default function Events() {
   };
 
   const displayEvents = () => {
-    if (!petProfile.events) {
+    if (!petEvents) {
       return;
-    } else if (petProfile.events.length === 0) {
-      return (
-        <div className="events-container">
-          {petProfile.name} doesn't have any activities yet!
-        </div>
-      );
+    } else if (petEvents.length === 0) {
+      return <div>{petProfile.name} doesn't have any activities yet!</div>;
     } else {
-      const output = [];
-      const sortedEvents = sortEventsByDay(petProfile.events);
-      for (const key in sortedEvents) {
-        const eventsOfDay = [
-          <div className="bold small" key={key}>
-            {key}
-          </div>,
-        ];
-        for (const event of sortedEvents[key]) {
-          eventsOfDay.push(
-            <div key={event.id} className="flex-container">
-              <div className="small margin-lr-sm">{event.name}</div>
+      const bgVariants = [
+        "primary",
+        "warning",
+        "secondary",
+        "dark",
+        "success",
+        "danger",
+        "info",
+      ];
+      const eventsByDay = sortEventsByDay(petEvents);
+      const eventsList = [];
+      let counter = 0;
+      for (const day in eventsByDay) {
+        const dayEventsList = [];
+        for (const event of eventsByDay[day]) {
+          dayEventsList.push(
+            <div className="event-item flex-container-space-btw" key={event.id}>
               <div className="small margin-lr-sm">
-                {calculateDuration(event)}
+                {event.subcategory.name} ({calculateDuration(event)})
               </div>
+              <Badge
+                className="small margin-lr-sm"
+                bg={bgVariants[event.categoryId - 1]}
+                text={event.categoryId === 2 && "dark"}
+              >
+                {event.category.name}
+              </Badge>
             </div>
           );
         }
-        output.push(
-          <div className="margin-tb-m events-container" key={key}>
-            {eventsOfDay}
-          </div>
+        eventsList.push(
+          <Accordion.Item key={day} eventKey={counter}>
+            <Accordion.Header>{day}</Accordion.Header>
+            <Accordion.Body className="day-events-container">
+              {dayEventsList}
+            </Accordion.Body>
+          </Accordion.Item>
         );
+        counter++;
       }
-      return <div className="events-container">{output}</div>;
+      return (
+        <Accordion
+          className="events-container"
+          flush
+          alwaysOpen
+          defaultActiveKey={[0]}
+        >
+          {eventsList}
+        </Accordion>
+      );
     }
   };
 
   return (
     <header className="App-header">
+      <div
+        className="top-btn-container bold"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <ArrowLeftShort />
+        Back
+      </div>
       {displayProfile()}
       {displayEvents()}
+      <div className="bottom-btn-container">
+        <PlusCircleFill
+          className="custom-btn"
+          onClick={() => {
+            navigate("./add-activity");
+          }}
+        />
+      </div>
     </header>
   );
 }

@@ -7,6 +7,7 @@ import MyPets from "./Components/MyPets.js";
 import Navigation from "./Components/Navigation.js";
 import Events from "./Components/Events.js";
 import PetForm from "./Components/PetForm.js";
+import EventForm from "./Components/EventForm.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +18,7 @@ root.render(
       <Route path="/my-pets" element={<MyPets />} />
       <Route path="/my-pets/add-pet" element={<PetForm />} />
       <Route path="/my-pets/:petId" element={<Events />} />
+      <Route path="/my-pets/:petId/add-activity" element={<EventForm />} />
     </Routes>
   </BrowserRouter>
 );

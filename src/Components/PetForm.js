@@ -6,6 +6,8 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { Form, FloatingLabel, Button, Spinner } from "react-bootstrap";
 import Select from "react-select";
 import { BACKEND_URL, USERID } from "../Constants.js";
+import Alerts from "./Alerts.js";
+import { ArrowLeftShort } from "react-bootstrap-icons";
 
 export default function PetForm() {
   const navigate = useNavigate();
@@ -20,6 +22,8 @@ export default function PetForm() {
   const [imageFile, setImageFile] = useState("");
   const [imageInputValue, setImageInputValue] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertKey, setAlertKey] = useState("");
 
   useEffect(() => {
     getSpecies();
@@ -65,10 +69,12 @@ export default function PetForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitting(true);
     if (!profile.speciesId || !profile.name) {
-      alert("Please complete your pet's profile.");
+      setShowAlert(true);
+      setAlertKey("petFormCompletion");
+      return;
     }
+    setSubmitting(true);
     uploadFile()
       .then((imageUrl) => writeData(imageUrl))
       .catch((error) => {
@@ -85,10 +91,13 @@ export default function PetForm() {
   };
 
   const writeData = async (imageUrl) => {
-    await axios.post(`${BACKEND_URL}/users/${USERID}/pets/`, {
-      ...profile,
-      imageUrl,
-    });
+    const requestBody = { ...profile, imageUrl };
+    for (const key in requestBody) {
+      if (!requestBody[key]) {
+        delete requestBody[key];
+      }
+    }
+    await axios.post(`${BACKEND_URL}/users/${USERID}/pets/`, requestBody);
     setProfile({
       speciesId: "",
       breedId: "",
@@ -103,6 +112,15 @@ export default function PetForm() {
   return (
     <div className="App">
       <header className="App-header">
+        <div
+          className="top-btn-container bold"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <ArrowLeftShort />
+          Back
+        </div>
         <h1 className="x-large">New pet</h1>
         <Form className="margin-lr-m" onSubmit={handleSubmit}>
           <Form.Group className="margin-tb-m">
@@ -197,6 +215,13 @@ export default function PetForm() {
             )}
           </Form.Group>
         </Form>
+        <Alerts
+          showAlert={showAlert}
+          hideAlert={() => {
+            setShowAlert(false);
+          }}
+          alertKey={alertKey}
+        />
       </header>
     </div>
   );

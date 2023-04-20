@@ -53,6 +53,11 @@
   justify-content: center;
 }
 
+.flex-container-space-btw {
+  display: flex;
+  justify-content: space-between;
+}
+
 .margin-tb-m {
   margin: 2vmin 0;
 }
@@ -119,7 +124,8 @@
 
 .react-select__placeholder,
 .react-select__single-value,
-.react-select__menu {
+.react-select__menu,
+.form-check {
   text-align: start;
 }
 
@@ -132,24 +138,52 @@
 }
 
 .events-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
+  width: 100%;
   max-width: 500px;
+}
+
+.accordion-button {
+  padding: 2vmin;
+}
+
+.day-events-container {
+  padding: 0;
+}
+
+.event-item {
   padding: 1vmin;
-  border-radius: 1vmin;
+  /* border: 0.5px #ffffff solid; */
+}
+
+/* Event form */
+.profile-xs {
+  object-fit: cover;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+}
+
+.form-check-input:checked {
+  background-color: #2d4059;
+  border-color: #2d4059;
 }
 
 /* Buttons */
-.btn-container {
+.bottom-btn-container {
   position: absolute;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   right: calc(10px + 1vmin);
   bottom: calc(10px + 1vmin);
+}
+
+.top-btn-container {
+  position: absolute;
   display: flex;
+  align-items: center;
+  top: 2vmin;
+  left: 2vmin;
 }
 
 .custom-btn {
