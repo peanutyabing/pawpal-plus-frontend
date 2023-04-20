@@ -156,6 +156,13 @@
 }
 
 /* Event form */
+.profile-xs {
+  object-fit: cover;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+}
+
 .form-check-input:checked {
   background-color: #2d4059;
   border-color: #2d4059;

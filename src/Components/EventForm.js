@@ -14,6 +14,7 @@ import moment from "moment";
 export default function EventForm() {
   const navigate = useNavigate();
   const { petId } = useParams();
+  const [petProfile, setPetProfile] = useState({});
   const [categoryList, setCategoryList] = useState([]);
   const [subcategoryList, setSubcategoryList] = useState([]);
   const [newSubcategory, setNewSubcategory] = useState(null);
@@ -34,6 +35,17 @@ export default function EventForm() {
   const [submitting, setSubmitting] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertKey, setAlertKey] = useState("");
+
+  useEffect(() => {
+    retrievePetProfile();
+  }, []);
+
+  const retrievePetProfile = async () => {
+    const profile = await axios.get(
+      `${BACKEND_URL}/users/${USERID}/pets/${petId}`
+    );
+    setPetProfile(profile.data[0]);
+  };
 
   useEffect(() => {
     getCategories();
@@ -93,9 +105,31 @@ export default function EventForm() {
     setEvent(eventToUpdate);
   };
 
+  useEffect(() => {
+    if (event.remindMe && getReminderTopic()) {
+      setShowAlert(true);
+      setAlertKey("reminderSet");
+    }
+  }, [event.remindMe]);
+
+  const getReminderTopic = () => {
+    if (subcategoryList.length && event.subcategoryId) {
+      const selectedSubcategory = subcategoryList.filter(
+        (subcat) => subcat.id === event.subcategoryId
+      )[0];
+      return selectedSubcategory && selectedSubcategory.name.toLowerCase();
+    } else if (newSubcategory) {
+      return newSubcategory.name.toLowerCase();
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!event.startTime) {
+    if (
+      !event.startTime ||
+      !event.categoryId ||
+      (!event.subcategoryId && !newSubcategory)
+    ) {
       setShowAlert(true);
       setAlertKey("eventFormCompletion");
       return;
@@ -103,6 +137,9 @@ export default function EventForm() {
     setSubmitting(true);
 
     const newSubcategoryId = await createSubcategory();
+
+    //// Call function to send post req to backend to create new reminder
+
     const imageUrl = await uploadFile();
     await writeData(imageUrl, newSubcategoryId);
   };
@@ -156,20 +193,6 @@ export default function EventForm() {
       console.log(err);
     }
 
-    setEvent({
-      categoryId: "",
-      subcategoryId: "",
-      startTime: moment(new Date()).format("YYYY-MM-DDTHH:mm"),
-      endTime: moment(new Date()).format("YYYY-MM-DDTHH:mm"),
-      causeForConcern: false,
-      description: "",
-      data: "",
-      unit: "",
-      imageUrl: "",
-      remindMe: false,
-    });
-    setImageFile("");
-    setImageInputValue("");
     navigate(`/my-pets/${petId}`);
   };
 
@@ -185,7 +208,14 @@ export default function EventForm() {
           <ArrowLeftShort />
           Back
         </div>
-        <h1 className="x-large">New activity</h1>
+        <div className="flex-container margin-tb-m">
+          <img
+            className="profile-xs margin-lr-m"
+            src={petProfile.imageUrl}
+            alt={petProfile.name}
+          />
+          <div className="x-large">{petProfile.name}'s new activity</div>
+        </div>
         <Form className="margin-lr-m" onSubmit={handleSubmit}>
           <Form.Group className="margin-tb-m">
             <Select
@@ -277,7 +307,7 @@ export default function EventForm() {
               type="switch"
               className="margin-lr-m"
               name="causeForConcern"
-              label="I'm concerned"
+              label="I'm worried"
               value={event.causeForConcern}
               onChange={handleSwitch}
             />
@@ -285,7 +315,7 @@ export default function EventForm() {
               type="switch"
               name="remindMe"
               className="margin-lr-m"
-              label="Set a reminder"
+              label="Remind me to do this again"
               value={event.remindMe}
               onChange={handleSwitch}
             />
@@ -316,6 +346,8 @@ export default function EventForm() {
             setShowAlert(false);
           }}
           alertKey={alertKey}
+          petName={petProfile.name}
+          topic={getReminderTopic()}
         />
       </header>
     </div>
