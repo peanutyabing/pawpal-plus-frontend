@@ -1,14 +1,15 @@
 import { useState } from "react";
 import useAuth from "../Hooks/useAuth.js";
-import axios from "axios";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { BACKEND_URL } from "../Constants.js";
+import { axiosDefault } from "../Axios.js";
+import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 import { Form, FloatingLabel, Button } from "react-bootstrap";
 
 export default function SignIn() {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosPrivate = useAxiosPrivate();
   const from = location.state?.from?.pathname || "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,8 +30,8 @@ export default function SignIn() {
       alert("Please provide your email and password!");
     }
     try {
-      const signInRes = await axios.post(
-        `${BACKEND_URL}/auth/sign-in`,
+      const signInRes = await axiosDefault.post(
+        "/auth/sign-in",
         {
           email,
           password,
@@ -38,9 +39,7 @@ export default function SignIn() {
         { withCredentials: true }
       );
       const { token, refreshToken } = signInRes.data;
-      const profile = await axios.get(`${BACKEND_URL}/user-profile`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const profile = await axiosPrivate.get("/user-profile");
       setAuth({ ...profile.data, token, refreshToken });
       setEmail("");
       setPassword("");

@@ -10,6 +10,7 @@ import Navigation from "./Components/Navigation.js";
 import Events from "./Components/Events.js";
 import PetForm from "./Components/PetForm.js";
 import EventForm from "./Components/EventForm.js";
+import Account from "./Components/Account.js";
 import SignIn from "./Components/SignIn.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -21,6 +22,7 @@ root.render(
         {/* Public routes */}
         <Route path="/" element={<App />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/account" element={<Account />} />
         {/* New user sign up page goes here */}
 
         {/* Protected routes */}

@@ -7,7 +7,13 @@ export default function Navigation() {
   return (
     <Navbar bg="dark" variant="dark" fixed="bottom">
       <Nav>
-        <Nav.Link>Account</Nav.Link>
+        <Nav.Link
+          onClick={() => {
+            navigate("/account");
+          }}
+        >
+          Account
+        </Nav.Link>
         <Nav.Link>Feed</Nav.Link>
         <Nav.Link
           onClick={() => {
