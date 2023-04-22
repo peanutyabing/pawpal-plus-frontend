@@ -3,8 +3,10 @@ import axios from "axios";
 import { ToastContainer, Toast } from "react-bootstrap";
 import { AlarmFill } from "react-bootstrap-icons";
 import { BACKEND_URL, USERID } from "../Constants.js";
+import useAuth from "../Hooks/useAuth.js";
 
 export default function Reminders(props) {
+  const { auth } = useAuth();
   const [reminders, setReminders] = useState([]);
 
   useEffect(() => {
@@ -13,7 +15,10 @@ export default function Reminders(props) {
 
   const getReminders = async () => {
     const remindersRes = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/reminders`
+      `${BACKEND_URL}/users/${USERID}/reminders`,
+      {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      }
     );
     setReminders(remindersRes.data);
   };

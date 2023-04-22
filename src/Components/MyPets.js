@@ -6,6 +6,7 @@ import Carousel from "react-bootstrap/Carousel";
 import { calculateAge } from "../Utils.js";
 import { PlusCircleFill } from "react-bootstrap-icons";
 import Reminders from "./Reminders.js";
+import useAuth from "../Hooks/useAuth.js";
 
 export default function MyPets() {
   const PLACEHOLDER_PIC =
@@ -14,14 +15,21 @@ export default function MyPets() {
   const [myPets, setMyPets] = useState([]);
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
+  const { auth } = useAuth();
 
   useEffect(() => {
     retrievePets();
   }, []);
 
   const retrievePets = async () => {
-    const pets = await axios.get(`${BACKEND_URL}/users/${USERID}/pets/`);
-    setMyPets(pets.data);
+    try {
+      const pets = await axios.get(`${BACKEND_URL}/users/${USERID}/pets/`, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      });
+      setMyPets(pets.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const displayPets = () => {
@@ -56,7 +64,6 @@ export default function MyPets() {
     <div className="App">
       <header className="App-header">
         <Reminders />
-        {/* Note: authenticated users see a summary of pet profiles */}
         <Carousel
           activeIndex={index}
           onSelect={handleSelect}

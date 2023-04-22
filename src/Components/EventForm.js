@@ -10,9 +10,11 @@ import { BACKEND_URL, USERID } from "../Constants.js";
 import Alerts from "./Alerts.js";
 import { ArrowLeftShort } from "react-bootstrap-icons";
 import moment from "moment";
+import useAuth from "../Hooks/useAuth.js";
 
 export default function EventForm() {
   const navigate = useNavigate();
+  const { auth } = useAuth();
   const { petId } = useParams();
   const [petProfile, setPetProfile] = useState({});
   const [categoryList, setCategoryList] = useState([]);
@@ -42,7 +44,10 @@ export default function EventForm() {
 
   const retrievePetProfile = async () => {
     const profile = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/${petId}`
+      `${BACKEND_URL}/users/${USERID}/pets/${petId}`,
+      {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      }
     );
     setPetProfile(profile.data[0]);
   };

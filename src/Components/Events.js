@@ -5,10 +5,12 @@ import { BACKEND_URL, USERID } from "../Constants.js";
 import { calculateAge, calculateDuration, sortEventsByDay } from "../Utils.js";
 import { Accordion, Badge } from "react-bootstrap";
 import { PlusCircleFill, ArrowLeftShort } from "react-bootstrap-icons";
+import useAuth from "../Hooks/useAuth.js";
 
 export default function Events() {
   const { petId } = useParams();
   const navigate = useNavigate();
+  const { auth } = useAuth();
 
   const [petProfile, setPetProfile] = useState({});
   const [petEvents, setPetEvents] = useState([]);
@@ -19,7 +21,8 @@ export default function Events() {
 
   const retrievePetProfile = async () => {
     const profile = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/${petId}`
+      `${BACKEND_URL}/users/${USERID}/pets/${petId}`,
+      { headers: { Authorization: `Bearer ${auth.token}` } }
     );
     setPetProfile(profile.data[0]);
   };
@@ -30,7 +33,10 @@ export default function Events() {
 
   const retrievePetEvents = async () => {
     const events = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/${petId}/events`
+      `${BACKEND_URL}/users/${USERID}/pets/${petId}/events`,
+      {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      }
     );
     setPetEvents(events.data);
   };
