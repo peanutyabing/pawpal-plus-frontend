@@ -9,7 +9,6 @@ export default function SignIn() {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const axiosPrivate = useAxiosPrivate();
   const from = location.state?.from?.pathname || "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,9 +37,8 @@ export default function SignIn() {
         },
         { withCredentials: true }
       );
-      const { token, refreshToken } = signInRes.data;
-      const profile = await axiosPrivate.get("/user-profile");
-      setAuth({ ...profile.data, token, refreshToken });
+      const { token } = signInRes.data;
+      setAuth({ token });
       setEmail("");
       setPassword("");
       navigate(from, { replace: true }); // Navigate to where the user was before they were redirected to sign-in

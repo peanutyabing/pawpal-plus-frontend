@@ -31,8 +31,12 @@ export default function PetForm() {
   }, []);
 
   const getSpecies = async () => {
-    const species = await axiosDefault.get("/my-pets/species");
-    setSpeciesList(species.data);
+    try {
+      const species = await axiosDefault.get("/my-pets/species");
+      setSpeciesList(species.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -43,10 +47,14 @@ export default function PetForm() {
     if (!profile.speciesId) {
       return;
     }
-    const breeds = await axiosDefault.get(
-      `/my-pets/species/${profile.speciesId}/breeds`
-    );
-    setBreedsList(breeds.data);
+    try {
+      const breeds = await axiosDefault.get(
+        `/my-pets/species/${profile.speciesId}/breeds`
+      );
+      setBreedsList(breeds.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSelect = (selected) => {

@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, Toast } from "react-bootstrap";
 import { AlarmFill } from "react-bootstrap-icons";
 import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 
 export default function Reminders(props) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const axiosPrivate = useAxiosPrivate();
   const [reminders, setReminders] = useState([]);
 
@@ -12,8 +15,13 @@ export default function Reminders(props) {
   }, []);
 
   const getReminders = async () => {
-    const remindersRes = await axiosPrivate.get("/my-reminders");
-    setReminders(remindersRes.data);
+    try {
+      const remindersRes = await axiosPrivate.get("/my-reminders");
+      setReminders(remindersRes.data);
+    } catch (err) {
+      console.log(err);
+      navigate("/sign-in", { state: { from: location }, replace: true });
+    }
   };
 
   const displayToasts = () => {

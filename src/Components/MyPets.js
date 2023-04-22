@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import { calculateAge } from "../Utils.js";
 import { PlusCircleFill } from "react-bootstrap-icons";
@@ -13,6 +13,7 @@ export default function MyPets() {
   const [myPets, setMyPets] = useState([]);
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function MyPets() {
       setMyPets(pets.data);
     } catch (err) {
       console.log(err);
+      navigate("/sign-in", { state: { from: location }, replace: true });
     }
   };
 
@@ -59,13 +61,6 @@ export default function MyPets() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <Button
-          onClick={() => {
-            refresh();
-          }}
-        >
-          Refresh token test
-        </Button> */}
         <Reminders />
         <Carousel
           activeIndex={index}

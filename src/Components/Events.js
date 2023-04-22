@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { calculateAge, calculateDuration, sortEventsByDay } from "../Utils.js";
 import { Accordion, Badge } from "react-bootstrap";
 import { PlusCircleFill, ArrowLeftShort } from "react-bootstrap-icons";
@@ -8,6 +8,7 @@ import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 export default function Events() {
   const { petId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const axiosPrivate = useAxiosPrivate();
 
   const [petProfile, setPetProfile] = useState({});
@@ -18,8 +19,13 @@ export default function Events() {
   }, []);
 
   const retrievePetProfile = async () => {
-    const profile = await axiosPrivate.get(`/my-pets/${petId}`);
-    setPetProfile(profile.data[0]);
+    try {
+      const profile = await axiosPrivate.get(`/my-pets/${petId}`);
+      setPetProfile(profile.data[0]);
+    } catch (err) {
+      console.log(err);
+      navigate("/sign-in", { state: { from: location }, replace: true });
+    }
   };
 
   useEffect(() => {
@@ -27,8 +33,13 @@ export default function Events() {
   }, []);
 
   const retrievePetEvents = async () => {
-    const events = await axiosPrivate.get(`/my-pets/${petId}/events`);
-    setPetEvents(events.data);
+    try {
+      const events = await axiosPrivate.get(`/my-pets/${petId}/events`);
+      setPetEvents(events.data);
+    } catch (err) {
+      console.log(err);
+      navigate("/sign-in", { state: { from: location }, replace: true });
+    }
   };
 
   const displayProfile = () => {
