@@ -6,7 +6,7 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { Form, FloatingLabel, Button, Spinner } from "react-bootstrap";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { BACKEND_URL, USERID } from "../Constants.js";
+import { BACKEND_URL } from "../Constants.js";
 import Alerts from "./Alerts.js";
 import { ArrowLeftShort } from "react-bootstrap-icons";
 import moment from "moment";
@@ -43,12 +43,9 @@ export default function EventForm() {
   }, []);
 
   const retrievePetProfile = async () => {
-    const profile = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/${petId}`,
-      {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      }
-    );
+    const profile = await axios.get(`${BACKEND_URL}/my-pets/${petId}`, {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    });
     setPetProfile(profile.data[0]);
   };
 
@@ -58,7 +55,7 @@ export default function EventForm() {
 
   const getCategories = async () => {
     const categories = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/${petId}/events/categories`
+      `${BACKEND_URL}/my-pets/${petId}/events/categories`
     );
     setCategoryList(categories.data);
   };
@@ -72,7 +69,7 @@ export default function EventForm() {
       return;
     }
     const subcategories = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/${petId}/events/categories/${event.categoryId}/subcategories`
+      `${BACKEND_URL}/my-pets/${petId}/events/categories/${event.categoryId}/subcategories`
     );
     setSubcategoryList(subcategories.data);
   };
@@ -155,7 +152,7 @@ export default function EventForm() {
     }
     try {
       const newSubcategoryRes = await axios.post(
-        `${BACKEND_URL}/users/${USERID}/pets/${petId}/events/categories/${event.categoryId}/subcategories`,
+        `${BACKEND_URL}/my-pets/${petId}/events/categories/${event.categoryId}/subcategories`,
         newSubcategory
       );
       return newSubcategoryRes.data.id;
@@ -190,10 +187,9 @@ export default function EventForm() {
       }
     }
     try {
-      await axios.post(
-        `${BACKEND_URL}/users/${USERID}/pets/${petId}/events`,
-        requestBody
-      );
+      await axios.post(`${BACKEND_URL}/my-pets/${petId}/events`, requestBody, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      });
     } catch (err) {
       console.log(err);
     }

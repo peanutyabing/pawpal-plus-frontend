@@ -5,12 +5,14 @@ import { storage } from "../Firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { Form, FloatingLabel, Button, Spinner } from "react-bootstrap";
 import Select from "react-select";
-import { BACKEND_URL, USERID } from "../Constants.js";
+import { BACKEND_URL } from "../Constants.js";
 import Alerts from "./Alerts.js";
 import { ArrowLeftShort } from "react-bootstrap-icons";
+import useAuth from "../Hooks/useAuth.js";
 
 export default function PetForm() {
   const navigate = useNavigate();
+  const { auth } = useAuth();
   const [speciesList, setSpeciesList] = useState([]);
   const [breedsList, setBreedsList] = useState([]);
   const [profile, setProfile] = useState({
@@ -30,9 +32,7 @@ export default function PetForm() {
   }, []);
 
   const getSpecies = async () => {
-    const species = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/species`
-    );
+    const species = await axios.get(`${BACKEND_URL}/my-pets/species`);
     setSpeciesList(species.data);
   };
 
@@ -45,7 +45,7 @@ export default function PetForm() {
       return;
     }
     const breeds = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/species/${profile.speciesId}/breeds`
+      `${BACKEND_URL}/my-pets/species/${profile.speciesId}/breeds`
     );
     setBreedsList(breeds.data);
   };
@@ -97,7 +97,9 @@ export default function PetForm() {
         delete requestBody[key];
       }
     }
-    await axios.post(`${BACKEND_URL}/users/${USERID}/pets/`, requestBody);
+    await axios.post(`${BACKEND_URL}/my-pets`, requestBody, {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    });
     setProfile({
       speciesId: "",
       breedId: "",

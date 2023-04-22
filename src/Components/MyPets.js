@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { BACKEND_URL, USERID } from "../Constants.js";
+import { BACKEND_URL } from "../Constants.js";
 import Carousel from "react-bootstrap/Carousel";
 import { calculateAge } from "../Utils.js";
 import { PlusCircleFill } from "react-bootstrap-icons";
 import Reminders from "./Reminders.js";
 import useAuth from "../Hooks/useAuth.js";
+import useRefreshToken from "../Hooks/useRefreshToken.js";
+import { Button } from "react-bootstrap";
 
 export default function MyPets() {
   const PLACEHOLDER_PIC =
@@ -16,6 +18,7 @@ export default function MyPets() {
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
   const { auth } = useAuth();
+  const refresh = useRefreshToken();
 
   useEffect(() => {
     retrievePets();
@@ -23,7 +26,7 @@ export default function MyPets() {
 
   const retrievePets = async () => {
     try {
-      const pets = await axios.get(`${BACKEND_URL}/users/${USERID}/pets/`, {
+      const pets = await axios.get(`${BACKEND_URL}/my-pets`, {
         headers: { Authorization: `Bearer ${auth.token}` },
       });
       setMyPets(pets.data);
@@ -63,6 +66,13 @@ export default function MyPets() {
   return (
     <div className="App">
       <header className="App-header">
+        <Button
+          onClick={() => {
+            refresh();
+          }}
+        >
+          Refresh token test
+        </Button>
         <Reminders />
         <Carousel
           activeIndex={index}

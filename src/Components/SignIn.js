@@ -37,8 +37,8 @@ export default function SignIn() {
         },
         { withCredentials: true }
       );
-      const { token, refreshToken, id } = signInRes.data;
-      const profile = await axios.get(`${BACKEND_URL}/users/${id}`, {
+      const { token, refreshToken } = signInRes.data;
+      const profile = await axios.get(`${BACKEND_URL}/user-profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAuth({ ...profile.data, token, refreshToken });
