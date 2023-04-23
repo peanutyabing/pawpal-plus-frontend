@@ -1,21 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { axiosDefault } from "../Axios.js";
-import useAuth from "../Hooks/useAuth.js";
+import useSignOut from "../Hooks/useSignOut.js";
 
 export default function Account() {
   const navigate = useNavigate();
-  const { setAuth } = useAuth();
+  const signOut = useSignOut();
 
   const handleSignOut = async () => {
-    try {
-      await axiosDefault.get("/auth/sign-out", {
-        withCredentials: true,
-      });
-      setAuth({});
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
+    await signOut();
+    navigate("/");
   };
 
   return (
