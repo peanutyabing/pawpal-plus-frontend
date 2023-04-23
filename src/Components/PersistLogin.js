@@ -6,25 +6,31 @@ import useAuth from "../Hooks/useAuth.js";
 export default function PersistLogin() {
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken();
-  const { auth } = useAuth();
+  const { auth, trustDevice } = useAuth();
 
   useEffect(() => {
+    let isMounted = true;
+
     const verifyRefreshToken = async () => {
       try {
         await refresh();
       } catch (err) {
         console.log(err);
       } finally {
-        setIsLoading(false);
+        isMounted && setIsLoading(false);
       }
     };
 
     !auth?.token ? verifyRefreshToken() : setIsLoading(false);
+
+    return () => (isMounted = false);
   }, []);
 
   return (
     <>
-      {isLoading ? (
+      {!trustDevice ? (
+        <Outlet />
+      ) : isLoading ? (
         <div className="App">
           <header className="App-header">
             <div>Loading...</div>

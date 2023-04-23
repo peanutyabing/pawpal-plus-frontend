@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../Hooks/useAuth.js";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { axiosDefault } from "../Axios.js";
-import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 import { Form, FloatingLabel, Button } from "react-bootstrap";
 
 export default function SignIn() {
-  const { setAuth } = useAuth();
+  const { setAuth, trustDevice, setTrustDevice } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -22,6 +21,14 @@ export default function SignIn() {
       setPassword(value);
     }
   };
+
+  const toggleTrustDevice = () => {
+    setTrustDevice((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("trustDevice", trustDevice);
+  }, [trustDevice]);
 
   const signIn = async (e) => {
     e.preventDefault();
@@ -51,7 +58,13 @@ export default function SignIn() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="large bold">Log in</h1>
+        <h1 className="large bold">Welcome back</h1>
+        <h2 className="small">
+          First time here?{" "}
+          <Link to="/" className="small">
+            Sign up
+          </Link>
+        </h2>
         <Form className="margin-lr-m" onSubmit={signIn}>
           <Form.Group className="margin-tb-m">
             <FloatingLabel label="Email" className="dark">
@@ -77,12 +90,18 @@ export default function SignIn() {
             </FloatingLabel>
           </Form.Group>
           <Form.Group className="margin-tb-m">
-            <Button variant="light" type="submit">
+            <Form.Check
+              type="switch"
+              name="trustDevice"
+              label="Trust this device"
+              checked={trustDevice}
+              onChange={toggleTrustDevice}
+            />
+          </Form.Group>
+          <Form.Group className="margin-tb-l">
+            <Button variant="light" type="submit" size="sm">
               Log in
             </Button>
-          </Form.Group>
-          <Form.Group className="margin-tb-m">
-            Need an account? <Link to="/">Sign up</Link>
           </Form.Group>
         </Form>
       </header>

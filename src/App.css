@@ -58,6 +58,10 @@
   justify-content: space-between;
 }
 
+.margin-tb-l {
+  margin: 4vmin 0;
+}
+
 .margin-tb-m {
   margin: 2vmin 0;
 }

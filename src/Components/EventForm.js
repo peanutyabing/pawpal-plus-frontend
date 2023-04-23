@@ -112,7 +112,7 @@ export default function EventForm() {
     setImageFile(e.target.files[0]);
   };
 
-  const handleSwitch = (e) => {
+  const toggleSwitch = (e) => {
     const eventToUpdate = { ...event };
     eventToUpdate[e.target.name] = !eventToUpdate[e.target.name];
     setEvent(eventToUpdate);
@@ -315,16 +315,16 @@ export default function EventForm() {
               className="margin-lr-m"
               name="causeForConcern"
               label="I'm worried"
-              value={event.causeForConcern}
-              onChange={handleSwitch}
+              checked={event.causeForConcern}
+              onChange={toggleSwitch}
             />
             <Form.Check
               type="switch"
               name="remindMe"
               className="margin-lr-m"
               label="Remind me to do this again"
-              value={event.remindMe}
-              onChange={handleSwitch}
+              checked={event.remindMe}
+              onChange={toggleSwitch}
             />
           </Form.Group>
 
