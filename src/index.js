@@ -13,6 +13,7 @@ import PetForm from "./Components/PetForm.js";
 import EventForm from "./Components/EventForm.js";
 import Account from "./Components/Account.js";
 import SignIn from "./Components/SignIn.js";
+import SignUp from "./Components/SignUp.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,8 +23,9 @@ root.render(
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<App />} />
-        <Route path="/sign-in" element={<SignIn />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
         {/* New user sign up page goes here */}
 
         {/* Protected routes that require auth */}

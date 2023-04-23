@@ -61,7 +61,7 @@ export default function SignIn() {
         <h1 className="large bold">Welcome back</h1>
         <h2 className="small">
           First time here?{" "}
-          <Link to="/" className="small">
+          <Link to="/sign-up" className="small">
             Sign up
           </Link>
         </h2>
