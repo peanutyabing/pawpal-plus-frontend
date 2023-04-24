@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { storage } from "../Firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { Form, FloatingLabel, Button, Spinner } from "react-bootstrap";
 import Select from "react-select";
-import { BACKEND_URL, USERID } from "../Constants.js";
 import Alerts from "./Alerts.js";
 import { ArrowLeftShort } from "react-bootstrap-icons";
+import { axiosDefault } from "../Axios.js";
+import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 
 export default function PetForm() {
   const navigate = useNavigate();
+  const axiosPrivate = useAxiosPrivate();
   const [speciesList, setSpeciesList] = useState([]);
   const [breedsList, setBreedsList] = useState([]);
   const [profile, setProfile] = useState({
@@ -30,10 +31,12 @@ export default function PetForm() {
   }, []);
 
   const getSpecies = async () => {
-    const species = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/species`
-    );
-    setSpeciesList(species.data);
+    try {
+      const species = await axiosDefault.get("/my-pets/species");
+      setSpeciesList(species.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -44,10 +47,14 @@ export default function PetForm() {
     if (!profile.speciesId) {
       return;
     }
-    const breeds = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/species/${profile.speciesId}/breeds`
-    );
-    setBreedsList(breeds.data);
+    try {
+      const breeds = await axiosDefault.get(
+        `/my-pets/species/${profile.speciesId}/breeds`
+      );
+      setBreedsList(breeds.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSelect = (selected) => {
@@ -97,7 +104,7 @@ export default function PetForm() {
         delete requestBody[key];
       }
     }
-    await axios.post(`${BACKEND_URL}/users/${USERID}/pets/`, requestBody);
+    await axiosPrivate.post("/my-pets", requestBody);
     setProfile({
       speciesId: "",
       breedId: "",

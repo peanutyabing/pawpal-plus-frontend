@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { BACKEND_URL, USERID } from "../Constants.js";
+import { useNavigate, useLocation } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import { calculateAge } from "../Utils.js";
 import { PlusCircleFill } from "react-bootstrap-icons";
 import Reminders from "./Reminders.js";
+import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 
 export default function MyPets() {
   const PLACEHOLDER_PIC =
@@ -14,14 +13,21 @@ export default function MyPets() {
   const [myPets, setMyPets] = useState([]);
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     retrievePets();
   }, []);
 
   const retrievePets = async () => {
-    const pets = await axios.get(`${BACKEND_URL}/users/${USERID}/pets/`);
-    setMyPets(pets.data);
+    try {
+      const pets = await axiosPrivate.get("/my-pets");
+      setMyPets(pets.data);
+    } catch (err) {
+      console.log(err);
+      navigate("/sign-in", { state: { from: location }, replace: true });
+    }
   };
 
   const displayPets = () => {
@@ -56,7 +62,6 @@ export default function MyPets() {
     <div className="App">
       <header className="App-header">
         <Reminders />
-        {/* Note: authenticated users see a summary of pet profiles */}
         <Carousel
           activeIndex={index}
           onSelect={handleSelect}

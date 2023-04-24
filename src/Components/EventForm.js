@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { axiosDefault } from "../Axios.js";
+import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 import { storage } from "../Firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { Form, FloatingLabel, Button, Spinner } from "react-bootstrap";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { BACKEND_URL, USERID } from "../Constants.js";
 import Alerts from "./Alerts.js";
 import { ArrowLeftShort } from "react-bootstrap-icons";
 import moment from "moment";
 
 export default function EventForm() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const axiosPrivate = useAxiosPrivate();
   const { petId } = useParams();
   const [petProfile, setPetProfile] = useState({});
   const [categoryList, setCategoryList] = useState([]);
@@ -41,10 +43,13 @@ export default function EventForm() {
   }, []);
 
   const retrievePetProfile = async () => {
-    const profile = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/${petId}`
-    );
-    setPetProfile(profile.data[0]);
+    try {
+      const profile = await axiosPrivate.get(`/my-pets/${petId}`);
+      setPetProfile(profile.data[0]);
+    } catch (err) {
+      console.log(err);
+      navigate("/sign-in", { state: { from: location }, replace: true });
+    }
   };
 
   useEffect(() => {
@@ -52,10 +57,14 @@ export default function EventForm() {
   }, []);
 
   const getCategories = async () => {
-    const categories = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/${petId}/events/categories`
-    );
-    setCategoryList(categories.data);
+    try {
+      const categories = await axiosDefault.get(
+        `/my-pets/${petId}/events/categories`
+      );
+      setCategoryList(categories.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -66,10 +75,14 @@ export default function EventForm() {
     if (!event.categoryId) {
       return;
     }
-    const subcategories = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/pets/${petId}/events/categories/${event.categoryId}/subcategories`
-    );
-    setSubcategoryList(subcategories.data);
+    try {
+      const subcategories = await axiosDefault.get(
+        `/my-pets/${petId}/events/categories/${event.categoryId}/subcategories`
+      );
+      setSubcategoryList(subcategories.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSelect = (selected) => {
@@ -137,9 +150,6 @@ export default function EventForm() {
     setSubmitting(true);
 
     const newSubcategoryId = await createSubcategory();
-
-    //// Call function to send post req to backend to create new reminder
-
     const imageUrl = await uploadFile();
     await writeData(imageUrl, newSubcategoryId);
   };
@@ -149,8 +159,8 @@ export default function EventForm() {
       return null;
     }
     try {
-      const newSubcategoryRes = await axios.post(
-        `${BACKEND_URL}/users/${USERID}/pets/${petId}/events/categories/${event.categoryId}/subcategories`,
+      const newSubcategoryRes = await axiosDefault.post(
+        `/my-pets/${petId}/events/categories/${event.categoryId}/subcategories`,
         newSubcategory
       );
       return newSubcategoryRes.data.id;
@@ -180,15 +190,12 @@ export default function EventForm() {
       requestBody.endTime = new Date().toISOString();
     }
     for (const key in requestBody) {
-      if (!requestBody[key]) {
+      if (requestBody[key] === null || requestBody[key] === "") {
         delete requestBody[key];
       }
     }
     try {
-      await axios.post(
-        `${BACKEND_URL}/users/${USERID}/pets/${petId}/events`,
-        requestBody
-      );
+      await axiosPrivate.post(`/my-pets/${petId}/events`, requestBody);
     } catch (err) {
       console.log(err);
     }
