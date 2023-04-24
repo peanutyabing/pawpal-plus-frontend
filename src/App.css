@@ -18,6 +18,23 @@
   color: #ffffff;
 }
 
+.App-logo-lg {
+  width: calc(200px + 10vmin);
+}
+
+.animate__animated.animate__rotateIn {
+  --animate-duration: 3s;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: underline #ffffff90;
+}
+
+a:hover {
+  color: #222831;
+}
+
 /* Utilities  */
 .x-large {
   font-size: calc(10px + 4vmin);
@@ -41,6 +58,10 @@
 
 .x-bold {
   font-weight: 700;
+}
+
+.xx-bold {
+  font-weight: 800;
 }
 
 .dark {
