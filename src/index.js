@@ -19,6 +19,7 @@ import UserProfileForm from "./Components/UserProfileForm.js";
 import AddPetExample from "./Tour/AddPetExample.js";
 import PetFormExample from "./Tour/PetFormExample.js";
 import PetExample from "./Tour/PetExample.js";
+import ChangePassword from "./Components/ChangePassword.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -35,13 +36,17 @@ root.render(
             element={<PetFormExample />}
           />
           <Route path="/my-pets/view-pet-example" element={<PetExample />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/account/sign-in" element={<SignIn />} />
+          <Route path="/account/sign-up" element={<SignUp />} />
 
           <Route element={<PersistLogin />}>
             <Route path="/account" element={<Account />} />
             {/* Protected routes that require auth */}
             <Route element={<RequireAuth />}>
+              <Route
+                path="/account/change-password"
+                element={<ChangePassword />}
+              />
               <Route path="/my-pets" element={<MyPets />} />
               <Route path="/my-pets/add-pet" element={<PetForm />} />
               <Route path="/my-pets/:petId" element={<Events />} />

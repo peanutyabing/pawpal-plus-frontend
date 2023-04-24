@@ -21,7 +21,7 @@ export default function App() {
         </div>
         <div className="margin-tb-m">
           Been here before?{" "}
-          <Link to="/sign-in" className="bold">
+          <Link to="/account/sign-in" className="bold">
             Sign in
           </Link>
         </div>

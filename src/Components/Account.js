@@ -38,18 +38,27 @@ export default function Account() {
           <div
             className="option"
             onClick={() => {
-              navigate("/sign-in");
+              navigate("./sign-in");
             }}
           >
             Sign in or register
           </div>
         )}
-        {auth.token && <div className="option">Change password</div>}
         {auth.token && (
           <div
             className="option"
             onClick={() => {
-              navigate("/account/update-profile");
+              navigate("./change-password");
+            }}
+          >
+            Change password
+          </div>
+        )}
+        {auth.token && (
+          <div
+            className="option"
+            onClick={() => {
+              navigate("./update-profile");
             }}
           >
             Update profile

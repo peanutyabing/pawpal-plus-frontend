@@ -20,7 +20,7 @@ export default function PetFormExample() {
             Skip tutorial
           </Button>
         </div>
-        <img className="example margin-tb-l" src={PetForm} alt="form" />
+        <img className="example margin-tb-m" src={PetForm} alt="form" />
         <Button
           variant="light"
           onClick={() => {

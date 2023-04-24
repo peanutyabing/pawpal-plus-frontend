@@ -9,6 +9,8 @@ export default function Alerts(props) {
     eventFormCompletion:
       "Make sure you include the category, sub-category, and start time.",
     reminderSet: `PawPal will remind you about ${props.petName}'s next ${props.topic}.`,
+    passwordChangeError: "Did you passwords match? Is your password weak?",
+    passwordChangeSuccess: "You have changed your password",
   };
 
   return (
