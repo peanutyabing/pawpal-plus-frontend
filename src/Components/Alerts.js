@@ -3,6 +3,8 @@ import { ToastContainer, Toast } from "react-bootstrap";
 export default function Alerts(props) {
   const toastMessages = {
     signUpError: "Please address the error messages before submitting.",
+    imageUploading: "Uploading... this may take a few seconds.",
+    profileUpdated: "Profile updated!",
     petFormCompletion: "Please complete your pet's profile.",
     eventFormCompletion:
       "Make sure you include the category, sub-category, and start time.",

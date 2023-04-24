@@ -121,6 +121,13 @@
   color: #ffffff;
 }
 
+.geo-select {
+  border-radius: 0.35rem;
+  border: none;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+}
+
 /* My pets */
 .carousel {
   width: 100%;
@@ -138,6 +145,7 @@
   width: 30vh;
   height: 30vh;
   border-radius: 50%;
+  background-color: #eeeeee50;
 }
 
 /* Pet form */
@@ -162,6 +170,7 @@
   width: 15vh;
   height: 15vh;
   border-radius: 50%;
+  background-color: #eeeeee50;
 }
 
 .events-container {
@@ -188,6 +197,7 @@
   width: 5vh;
   height: 5vh;
   border-radius: 50%;
+  background-color: #eeeeee50;
 }
 
 .form-check-input:checked {
