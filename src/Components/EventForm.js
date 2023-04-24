@@ -9,6 +9,7 @@ import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import Alerts from "./Alerts.js";
 import { ArrowLeftShort } from "react-bootstrap-icons";
+import { defaultPetPhoto } from "../Utils.js";
 import moment from "moment";
 
 export default function EventForm() {
@@ -221,7 +222,7 @@ export default function EventForm() {
         <div className="flex-container margin-tb-m">
           <img
             className="profile-xs margin-lr-m"
-            src={petProfile.imageUrl}
+            src={petProfile.imageUrl || defaultPetPhoto}
             alt={petProfile.name}
           />
           <div className="x-large">{petProfile.name}'s new activity</div>
