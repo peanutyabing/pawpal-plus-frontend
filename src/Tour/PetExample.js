@@ -17,6 +17,7 @@ export default function PetExample() {
             <Button
               className="margin-tb-m margin-lr-m"
               variant="outline-light"
+              size="sm"
               onClick={() => {
                 // Navigate to feed
               }}
@@ -26,6 +27,7 @@ export default function PetExample() {
             <Button
               className="margin-tb-m margin-lr-m"
               variant="outline-light"
+              size="sm"
               onClick={() => {
                 navigate("/");
               }}

@@ -205,7 +205,7 @@ export default function PetForm() {
           </Form.Group>
           <Form.Group className="margin-tb-m">
             {submitting ? (
-              <Button variant="light" disabled>
+              <Button variant="light" size="sm" disabled>
                 <Spinner
                   as="span"
                   animation="border"
@@ -216,7 +216,7 @@ export default function PetForm() {
                 <span className="visually-hidden">Submitting...</span>
               </Button>
             ) : (
-              <Button type="submit" variant="light">
+              <Button type="submit" size="sm" variant="light">
                 Submit
               </Button>
             )}

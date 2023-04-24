@@ -13,6 +13,7 @@ export default function PetFormExample() {
           <Button
             className="margin-tb-m"
             variant="outline-light"
+            size="sm"
             onClick={() => {
               navigate("/my-pets");
             }}
@@ -23,6 +24,7 @@ export default function PetFormExample() {
         <img className="example margin-tb-m" src={PetForm} alt="form" />
         <Button
           variant="light"
+          size="sm"
           onClick={() => {
             navigate("/my-pets/view-pet-example");
           }}

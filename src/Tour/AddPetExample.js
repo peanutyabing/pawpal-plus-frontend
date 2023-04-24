@@ -13,6 +13,7 @@ export default function AddPetExample() {
           <Button
             className="margin-tb-m"
             variant="outline-light"
+            size="sm"
             onClick={() => {
               navigate("/my-pets");
             }}

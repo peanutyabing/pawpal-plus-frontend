@@ -75,11 +75,11 @@ export default function Events() {
           <div className="medium">
             {petProfile?.species?.name} | {petProfile?.breed?.name}
           </div>
-          <div className="medium">{calculateAge(petProfile?.dateOfBirth)}</div>
           <div className="medium flex-container">
             <CalendarEvent />
             <div className="margin-lr-m">
-              {getNextBirthday(petProfile?.dateOfBirth)}
+              {getNextBirthday(petProfile?.dateOfBirth)} (
+              {calculateAge(petProfile?.dateOfBirth)})
             </div>
           </div>
         </div>

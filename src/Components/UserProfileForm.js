@@ -157,7 +157,7 @@ export default function UserProfileForm() {
             </FloatingLabel>
           </Form.Group>
           <Form.Group className="margin-tb-m">
-            <Button type="submit" variant="light">
+            <Button type="submit" variant="light" size="sm">
               Submit
             </Button>
           </Form.Group>
