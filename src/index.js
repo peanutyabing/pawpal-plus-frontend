@@ -31,10 +31,7 @@ root.render(
 
           <Route element={<PersistLogin />}>
             <Route path="/account" element={<Account />} />
-          </Route>
-
-          {/* Protected routes that require auth */}
-          <Route element={<PersistLogin />}>
+            {/* Protected routes that require auth */}
             <Route element={<RequireAuth />}>
               <Route path="/my-pets" element={<MyPets />} />
               <Route path="/my-pets/add-pet" element={<PetForm />} />
