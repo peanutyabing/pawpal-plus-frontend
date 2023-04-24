@@ -61,7 +61,7 @@ export default function SignUp() {
       const { token } = signUpRes.data;
       setAuth({ token });
       localStorage.setItem("createdAccount", true);
-      navigate("/update-profile");
+      navigate("/account/update-profile");
     } catch (err) {
       console.log(err);
       alert(err.response.data.msg);
