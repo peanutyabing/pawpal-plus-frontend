@@ -49,7 +49,7 @@ export default function Account() {
           <div
             className="option"
             onClick={() => {
-              navigate("/update-profile");
+              navigate("/account/update-profile");
             }}
           >
             Update profile

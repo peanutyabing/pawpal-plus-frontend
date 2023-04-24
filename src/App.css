@@ -10,7 +10,7 @@
 .App-header {
   position: relative;
   background-color: #ff5722;
-  min-height: 92vh;
+  height: 94vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,10 +29,16 @@
 a {
   color: #ffffff;
   text-decoration: underline #ffffff90;
+  margin-bottom: auto;
 }
 
 a:hover {
   color: #222831;
+}
+
+.example {
+  width: 95vw;
+  max-width: 400px;
 }
 
 /* Utilities  */
@@ -71,7 +77,6 @@ a:hover {
 .flex-container {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .flex-container-space-btw {
@@ -101,22 +106,19 @@ a:hover {
 
 /* Navbar */
 .navbar {
-  max-height: 8vh;
+  height: 6vh;
 }
 
 .navbar-nav {
   justify-content: space-evenly;
   width: 100%;
+  height: 6vh;
 }
 
 .navbar-nav > a {
+  color: #ffffff;
   width: 32%;
   text-align: center;
-}
-
-.navbar-nav > a:hover {
-  background-color: #eeeeee;
-  color: #222831;
 }
 
 /* Account */
@@ -169,6 +171,21 @@ a:hover {
   background-color: #eeeeee50;
 }
 
+.hint {
+  text-align: end;
+  margin: auto calc(20px + 2vmin) calc(20px + 1vmin) auto;
+}
+
+.hint-left {
+  text-align: start;
+  margin-left: calc(10px + 2vmin);
+  margin-right: auto;
+}
+
+.guide-arrow {
+  width: 40vmin;
+}
+
 /* Pet form */
 .form-floating > label {
   padding: 0.75rem;
@@ -186,6 +203,11 @@ a:hover {
 }
 
 /* Pet events */
+.profile {
+  position: relative;
+  top: 5vh;
+}
+
 .profile-sm {
   object-fit: cover;
   width: 15vh;
@@ -209,7 +231,6 @@ a:hover {
 
 .event-item {
   padding: 1vmin;
-  /* border: 0.5px #ffffff solid; */
 }
 
 /* Event form */

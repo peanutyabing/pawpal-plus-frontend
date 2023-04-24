@@ -1,4 +1,8 @@
+export const defaultPetPhoto =
+  "https://images.unsplash.com/photo-1606425271394-c3ca9aa1fc06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80";
+
 export const calculateAge = (dateOfBirth) => {
+  if (!dateOfBirth) return;
   const dob = new Date(dateOfBirth);
   const now = new Date();
   const ageInYears = (now - dob) / 1000 / 60 / 60 / 24 / 365;
@@ -8,11 +12,19 @@ export const calculateAge = (dateOfBirth) => {
     return `${Math.floor(ageInYears)} year old`;
   } else {
     const ageInMonths = 12 * ageInYears;
-    if (ageInMonths <= 1) {
+    if (ageInMonths < 2) {
       return "1 month old";
     }
     return `${Math.floor(ageInMonths)} months old`;
   }
+};
+
+export const getNextBirthday = (dateOfBirth) => {
+  if (!dateOfBirth) return;
+  const dob = new Date(dateOfBirth);
+  const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(dob);
+  const day = dob.getDate();
+  return `${day} ${month}`;
 };
 
 export const calculateDuration = (petEvent, byStartTime = true) => {

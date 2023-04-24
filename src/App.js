@@ -1,6 +1,6 @@
 import "./App.css";
 import "animate.css";
-import logo from "./PawPal-logo-1.png";
+import logo from "./Images/PawPal-logo-1.png";
 import { Link } from "react-router-dom";
 
 export default function App() {
@@ -14,7 +14,10 @@ export default function App() {
         />
         <h1 className="x-large xx-bold margin-tb-l">Welcome to PawPal!</h1>
         <div className="margin-tb-m">
-          Take a quick <Link className="bold">tour</Link>
+          Take a quick{" "}
+          <Link to="/my-pets/add-pet-example" className="bold">
+            tour
+          </Link>
         </div>
         <div className="margin-tb-m">
           Been here before?{" "}

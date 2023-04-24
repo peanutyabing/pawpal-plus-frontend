@@ -33,10 +33,10 @@ export default function UserProfileForm() {
   useEffect(() => {
     setProfile((prevState) => ({
       ...prevState,
-      imageUrl: user.imageUrl,
-      country: user.country,
-      region: user.region,
-      cityTown: user.cityTown,
+      imageUrl: user.imageUrl || "",
+      country: user.country || "",
+      region: user.region || "",
+      cityTown: user.cityTown || "",
     }));
   }, [user]);
 
