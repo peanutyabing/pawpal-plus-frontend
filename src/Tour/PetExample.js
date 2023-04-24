@@ -27,7 +27,7 @@ export default function PetExample() {
               className="margin-tb-m margin-lr-m"
               variant="outline-light"
               onClick={() => {
-                navigate("/my-pets");
+                navigate("/");
               }}
             >
               End tour

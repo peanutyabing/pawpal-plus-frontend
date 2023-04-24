@@ -48,7 +48,10 @@ export default function EventForm() {
       setPetProfile(profile.data[0]);
     } catch (err) {
       console.log(err);
-      navigate("/sign-in", { state: { from: location }, replace: true });
+      navigate("/account/sign-in", {
+        state: { from: location },
+        replace: true,
+      });
     }
   };
 

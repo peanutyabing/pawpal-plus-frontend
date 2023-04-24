@@ -24,7 +24,10 @@ export default function MyPets() {
       setMyPets(pets.data);
     } catch (err) {
       console.log(err);
-      navigate("/sign-in", { state: { from: location }, replace: true });
+      navigate("/account/sign-in", {
+        state: { from: location },
+        replace: true,
+      });
     }
   };
 

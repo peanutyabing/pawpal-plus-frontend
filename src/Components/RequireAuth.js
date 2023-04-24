@@ -8,6 +8,6 @@ export default function RequireAuth() {
   return auth?.token ? (
     <Outlet />
   ) : (
-    <Navigate to="/sign-in" state={{ from: location }} replace />
+    <Navigate to="/account/sign-in" state={{ from: location }} replace />
   );
 }

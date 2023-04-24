@@ -13,16 +13,22 @@ export default function App() {
           alt="PawPal"
         />
         <h1 className="x-large xx-bold margin-tb-l">Welcome to PawPal!</h1>
-        <div className="margin-tb-m">
+        <div className="margin-tb-sm">
           Take a quick{" "}
           <Link to="/my-pets/add-pet-example" className="bold">
             tour
           </Link>
         </div>
-        <div className="margin-tb-m">
+        <div className="margin-tb-sm">
           Been here before?{" "}
           <Link to="/account/sign-in" className="bold">
             Sign in
+          </Link>
+        </div>
+        <div className="margin-tb-sm">
+          New user?{" "}
+          <Link to="/account/sign-up" className="bold">
+            Sign up
           </Link>
         </div>
       </header>
