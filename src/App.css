@@ -289,6 +289,16 @@ a:hover {
   padding: calc(10px + 1vmin);
 }
 
+/* Reminders */
+.toast-container {
+  width: 95vw;
+  max-width: 500px;
+}
+
+.toast {
+  width: 100%;
+}
+
 /* Buttons */
 .bottom-btn-container {
   position: absolute;
