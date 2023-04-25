@@ -191,16 +191,16 @@ export default function Events() {
       {displayProfile()}
       {displayEvents()}
       <div className="bottom-btn-container">
-        <BarChartLineFill
-          className="custom-btn margin-tb-m"
-          onClick={() => {
-            navigate("./report");
-          }}
-        />
         <PlusCircleFill
           className="custom-btn"
           onClick={() => {
             navigate("./add-activity");
+          }}
+        />
+        <BarChartLineFill
+          className="custom-btn margin-tb-m"
+          onClick={() => {
+            navigate("./report");
           }}
         />
       </div>

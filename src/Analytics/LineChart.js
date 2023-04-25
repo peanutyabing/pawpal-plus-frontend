@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import moment from "moment";
 
 ChartJS.register(
   CategoryScale,
@@ -26,22 +27,27 @@ export const options = {
     legend: {
       position: "top",
     },
-    title: {
-      display: true,
-      text: "Line Chart",
-    },
   },
 };
 
 export default function LineChart(props) {
+  let labels;
+  let dataValues;
+  if (props.data.length) {
+    labels = props.data.map((row) =>
+      moment(new Date(row.startTime)).format("MMM DD")
+    );
+    dataValues = props.data.map((row) => row.data);
+  }
+
   const data = {
-    labels: ["day1", "day2", "day3"],
+    labels,
     datasets: [
       {
-        label: "Dataset 1",
-        data: [4.1, 4.3, 4.2],
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        label: "Weight",
+        data: dataValues,
+        borderColor: "#ff6384",
+        backgroundColor: "#ff638450",
       },
     ],
   };

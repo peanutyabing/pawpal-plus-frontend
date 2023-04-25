@@ -112,11 +112,6 @@ export default function Report() {
     }
   };
 
-  // Doughnut chart: aggregate n. of events by cat
-  // Doughnut chart: aggregate n. of events by sub-cat
-
-  // line chart: array of dates, array of data, unit
-
   return (
     <div className="App">
       <header className="App-header">
@@ -131,9 +126,11 @@ export default function Report() {
           </div>
         </div>
         <div>
-          <div>
-            <span className="x-bold">{petEvents?.length}</span> activities
-          </div>
+          <span className="x-bold">{petEvents?.length}</span>{" "}
+          {petEvents.length > 1 ? "activities" : "activity"}
+        </div>
+
+        {petEvents.length > 0 && (
           <div>
             Documented over{" "}
             <span className="x-bold">
@@ -145,25 +142,38 @@ export default function Report() {
                 .humanize()}
             </span>
           </div>
-        </div>
-        <div className="mobile-width-container margin-tb-m">
-          <div className="graph-container margin-tb-m">
-            <div className="dark small bold">No. of activities by category</div>
-            <DoughnutChart data={eventsByCategory} colMapping={categoriesMap} />
-          </div>
-          <div className="graph-container margin-tb-m">
-            <div className="dark small bold">
-              No. of activities by sub-category
+        )}
+
+        {petEvents.length > 0 && (
+          <div className="mobile-width-container">
+            <div className="graph-container margin-tb-m">
+              <div className="dark small bold">
+                No. of activities by category
+              </div>
+              <DoughnutChart
+                data={eventsByCategory}
+                colMapping={categoriesMap}
+              />
             </div>
-            <DoughnutChart
-              data={eventsBySubcategory}
-              colMapping={subcategoriesMap}
-            />
+            <div className="graph-container margin-tb-m">
+              <div className="dark small bold">
+                No. of activities by sub-category
+              </div>
+              <DoughnutChart
+                data={eventsBySubcategory}
+                colMapping={subcategoriesMap}
+              />
+            </div>
+            <div className="graph-container margin-tb-m">
+              <div className="dark small bold">Weight change</div>
+              <LineChart
+                data={petEvents.filter((event) => event.subcategoryId === 17)}
+              />
+            </div>
           </div>
-          <div className="graph-container margin-tb-m">
-            <div className="dark small bold">Weight change</div>
-            <LineChart />
-          </div>
+        )}
+        <div className="small italic margin-tb-sm">
+          Generated on {moment(new Date()).format("MMMM DD YYYY, h:mm a")}
         </div>
       </header>
     </div>
