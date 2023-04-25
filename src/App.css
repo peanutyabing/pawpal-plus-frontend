@@ -22,6 +22,10 @@
   width: calc(200px + 10vmin);
 }
 
+.App-logo-xs {
+  height: 5vh;
+}
+
 .animate__animated.animate__rotateIn {
   --animate-duration: 3s;
 }
@@ -109,6 +113,13 @@ a:hover {
   height: 6vh;
 }
 
+.navbar-brand {
+  margin: 0 auto;
+  padding-left: 1vmin;
+  padding-right: 1vmin;
+  cursor: pointer;
+}
+
 .navbar-nav {
   justify-content: space-evenly;
   width: 100%;
@@ -117,9 +128,10 @@ a:hover {
 
 .navbar-nav > a {
   color: #ffffff;
-  width: 32%;
+  width: 33.33%;
   text-align: center;
   font-size: 20px;
+  border-left: 0.5px #ffffff30 solid;
 }
 
 /* Account */
