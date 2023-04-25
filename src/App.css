@@ -306,7 +306,7 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   right: calc(10px + 1vmin);
-  bottom: calc(10px + 1vmin);
+  bottom: 6vh;
 }
 
 .top-btn-container {

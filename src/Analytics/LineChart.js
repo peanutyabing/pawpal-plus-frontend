@@ -34,10 +34,10 @@ export default function LineChart(props) {
   let labels;
   let dataValues;
   if (props.data.length) {
-    labels = props.data.map((row) =>
-      moment(new Date(row.startTime)).format("MMM DD")
-    );
-    dataValues = props.data.map((row) => row.data);
+    labels = props.data
+      .reverse()
+      .map((row) => moment(new Date(row.startTime)).format("MMM DD"));
+    dataValues = props.data.reverse().map((row) => row.data);
   }
 
   const data = {
