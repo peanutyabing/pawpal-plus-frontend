@@ -29,6 +29,7 @@ export default function UserProfileForm() {
   const [imageInputValue, setImageInputValue] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertKey, setAlertKey] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     setProfile((prevState) => ({
@@ -48,6 +49,7 @@ export default function UserProfileForm() {
   useEffect(() => {
     uploadFile().then((imageUrl) => {
       setProfile((prevState) => ({ ...prevState, imageUrl }));
+      setUploading(false);
     });
   }, [imageFile]);
 
@@ -55,6 +57,7 @@ export default function UserProfileForm() {
     if (!imageFile) {
       return Promise.resolve("");
     }
+    setUploading(true);
     setShowAlert(true);
     setAlertKey("imageUploading");
     const fileRef = ref(storage, `user-profiles/${imageFile.name}`);
@@ -63,6 +66,11 @@ export default function UserProfileForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (uploading) {
+      setShowAlert(true);
+      setAlertKey("imageUploading");
+      return;
+    }
     try {
       await axiosPrivate.put("/user-profile", profile);
       setShowAlert(true);

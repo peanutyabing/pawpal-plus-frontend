@@ -16,6 +16,7 @@
   align-items: center;
   justify-content: center;
   color: #ffffff;
+  overflow: scroll;
 }
 
 .App-logo-lg {
@@ -74,6 +75,10 @@ a:hover {
   font-weight: 800;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .dark {
   color: #222831;
 }
@@ -128,7 +133,8 @@ a:hover {
 
 .navbar-nav > a {
   color: #ffffff;
-  width: 33.33%;
+  /* width: 33.33%; */
+  flex: 1;
   text-align: center;
   font-size: 20px;
   border-left: 0.5px #ffffff30 solid;
@@ -245,7 +251,11 @@ a:hover {
 }
 
 .event-item {
-  padding: 1vmin;
+  align-items: center;
+  padding: calc(2px + 1vmin);
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* Event form */
@@ -260,6 +270,16 @@ a:hover {
 .form-check-input:checked {
   background-color: #2d4059;
   border-color: #2d4059;
+}
+
+/* Event details */
+.event-photo-container {
+  width: 90vw;
+  max-width: 500px;
+}
+
+.event-photo {
+  max-height: 30vh;
 }
 
 /* Buttons */

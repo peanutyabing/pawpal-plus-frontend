@@ -39,7 +39,7 @@ export default function MyPets() {
       <Carousel.Item
         key={pet.id}
         onClick={() => {
-          navigate(`./${pet.id}`);
+          navigate(`./${pet.id}/events`);
         }}
       >
         <img

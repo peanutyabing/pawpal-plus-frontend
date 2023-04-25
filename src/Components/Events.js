@@ -12,6 +12,9 @@ import {
   PlusCircleFill,
   ArrowLeftShort,
   CalendarEvent,
+  AlarmFill,
+  ExclamationCircleFill,
+  Image,
 } from "react-bootstrap-icons";
 import CurlyArrow from "../Images/Curly-arrow.png";
 import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
@@ -120,17 +123,33 @@ export default function Events() {
         const dayEventsList = [];
         for (const event of eventsByDay[day]) {
           dayEventsList.push(
-            <div className="event-item flex-container-space-btw" key={event.id}>
-              <div className="small margin-lr-sm">
-                {event.subcategory.name} ({calculateDuration(event)})
+            <div
+              className="event-item flex-container-space-btw"
+              key={event.id}
+              onClick={() => {
+                navigate(`./${event.id}`);
+              }}
+            >
+              <div className="small margin-lr-sm flex-container">
+                {event.subcategory?.name} ({calculateDuration(event)}){" "}
               </div>
-              <Badge
-                className="small margin-lr-sm"
-                bg={bgVariants[event.categoryId - 1]}
-                text={event.categoryId === 2 && "dark"}
-              >
-                {event.category.name}
-              </Badge>
+              <div>
+                {event.imageUrl && <Image className="margin-lr-m" />}
+                {event.remindMe && <AlarmFill className="margin-lr-m" />}
+                {event.causeForConcern && (
+                  <ExclamationCircleFill
+                    className="margin-lr-m"
+                    color="#FA5F55"
+                  />
+                )}
+                <Badge
+                  className="small margin-lr-sm"
+                  bg={bgVariants[event.categoryId - 1]}
+                  text={event.categoryId === 2 && "dark"}
+                >
+                  {event.category.name}
+                </Badge>
+              </div>
             </div>
           );
         }

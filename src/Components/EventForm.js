@@ -62,9 +62,7 @@ export default function EventForm() {
 
   const getCategories = async () => {
     try {
-      const categories = await axiosDefault.get(
-        `/my-pets/${petId}/events/categories`
-      );
+      const categories = await axiosDefault.get(`/categories`);
       setCategoryList(categories.data);
     } catch (err) {
       console.log(err);
@@ -81,7 +79,7 @@ export default function EventForm() {
     }
     try {
       const subcategories = await axiosDefault.get(
-        `/my-pets/${petId}/events/categories/${event.categoryId}/subcategories`
+        `/categories/${event.categoryId}/subcategories`
       );
       setSubcategoryList(subcategories.data);
     } catch (err) {
@@ -164,7 +162,7 @@ export default function EventForm() {
     }
     try {
       const newSubcategoryRes = await axiosDefault.post(
-        `/my-pets/${petId}/events/categories/${event.categoryId}/subcategories`,
+        `/categories/${event.categoryId}/subcategories`,
         newSubcategory
       );
       return newSubcategoryRes.data.id;
@@ -177,7 +175,7 @@ export default function EventForm() {
     if (!imageFile) {
       return Promise.resolve("");
     }
-    const fileRef = ref(storage, `pet-profiles/${imageFile.name}`);
+    const fileRef = ref(storage, `pet-events/${imageFile.name}`);
     return uploadBytes(fileRef, imageFile)
       .then(() => getDownloadURL(fileRef))
       .catch((err) => {
@@ -203,8 +201,7 @@ export default function EventForm() {
     } catch (err) {
       console.log(err);
     }
-
-    navigate(`/my-pets/${petId}`);
+    navigate(`/my-pets/${petId}/events`);
   };
 
   return (
