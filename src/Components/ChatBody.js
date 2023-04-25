@@ -11,7 +11,7 @@ export default function ChatBody({ messages, lastMessageRef }) {
   return (
     <>
       <header className="chat__mainHeader">
-        <p>Hangout with Colleagues</p>
+        <p>Pawpals</p>
         <button className="leaveChat__btn" onClick={handleLeaveChat}>
           LEAVE CHAT
         </button>

@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import { Card } from "react-bootstrap";
 import { BACKEND_URL, USERID } from "../Constants";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Carousel from "react-bootstrap/Carousel";
+
+import { PlusCircleFill } from "react-bootstrap-icons";
 
 export default function Posts() {
   const [allPost, setAllPost] = useState([]);
+
+  const [index, setIndex] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,22 +29,48 @@ export default function Posts() {
     navigate(`/posts/${postId}`);
   };
 
+  const displayPets = () => {
+    return allPost.map((post) => (
+      <Carousel.Item
+        key={post.id}
+        onClick={() => {
+          goToPost(post.id);
+        }}
+      >
+        <Carousel.Caption>
+          <h2 className="large bold">{post.title}</h2>
+          <h3 className="medium">{post.content}</h3>
+        </Carousel.Caption>
+      </Carousel.Item>
+    ));
+  };
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         {/* Note: authenticated users see a summary of pet profiles */}
 
-        {allPost.map((post) => (
-          <Card
-            style={{ width: "18rem", color: "black", cursor: "pointer" }}
-            onClick={() => goToPost(post.id)}
-          >
-            <Card.Body>
-              <Card.Title>{post.title}</Card.Title>
-              <Card.Text>{post.content}</Card.Text>
-            </Card.Body>
-          </Card>
-        ))}
+        <Carousel
+          activeIndex={index}
+          onSelect={handleSelect}
+          controls={allPost.length > 1}
+          indicators={allPost.length > 1}
+        >
+          {displayPets()}
+        </Carousel>
+
+        <div className="bottom-btn-container">
+          <PlusCircleFill
+            className="custom-btn"
+            onClick={() => {
+              navigate("/postform");
+            }}
+          />
+        </div>
       </header>
     </div>
   );

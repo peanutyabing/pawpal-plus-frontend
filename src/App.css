@@ -10,12 +10,35 @@
 .App-header {
   position: relative;
   background-color: #ff5722;
-  min-height: 92vh;
+  height: 94vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #ffffff;
+}
+
+.App-logo-lg {
+  width: calc(200px + 10vmin);
+}
+
+.animate__animated.animate__rotateIn {
+  --animate-duration: 3s;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: underline #ffffff90;
+  margin-bottom: auto;
+}
+
+a:hover {
+  color: #222831;
+}
+
+.example {
+  width: 95vw;
+  max-width: 400px;
 }
 
 /* Utilities  */
@@ -43,6 +66,10 @@
   font-weight: 700;
 }
 
+.xx-bold {
+  font-weight: 800;
+}
+
 .dark {
   color: #222831;
 }
@@ -50,7 +77,15 @@
 .flex-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+
+.flex-container-space-btw {
+  display: flex;
+  justify-content: space-between;
+}
+
+.margin-tb-l {
+  margin: 4vmin 0;
 }
 
 .margin-tb-m {
@@ -71,22 +106,50 @@
 
 /* Navbar */
 .navbar {
-  max-height: 8vh;
+  height: 6vh;
 }
 
 .navbar-nav {
   justify-content: space-evenly;
   width: 100%;
+  height: 6vh;
 }
 
 .navbar-nav > a {
+  color: #ffffff;
   width: 32%;
   text-align: center;
+  font-size: 20px;
 }
 
-.navbar-nav > a:hover {
+/* Account */
+.account-container {
+  justify-content: flex-start;
+}
+
+.option {
+  width: 100%;
+  padding: 4vmin;
+  margin: 1px 0;
+  background-color: #ffffff20;
+  cursor: pointer;
+}
+
+.option:hover {
   background-color: #eeeeee;
   color: #222831;
+}
+
+/* Sign up */
+.pw-strength > p {
+  color: #ffffff;
+}
+
+.geo-select {
+  border-radius: 0.35rem;
+  border: none;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
 }
 
 /* My pets */
@@ -106,6 +169,22 @@
   width: 30vh;
   height: 30vh;
   border-radius: 50%;
+  background-color: #eeeeee50;
+}
+
+.hint {
+  text-align: end;
+  margin: auto calc(20px + 2vmin) calc(20px + 1vmin) auto;
+}
+
+.hint-left {
+  text-align: start;
+  margin-left: calc(10px + 2vmin);
+  margin-right: auto;
+}
+
+.guide-arrow {
+  width: 40vmin;
 }
 
 /* Pet form */
@@ -119,37 +198,74 @@
 
 .react-select__placeholder,
 .react-select__single-value,
-.react-select__menu {
+.react-select__menu,
+.form-check {
   text-align: start;
 }
 
 /* Pet events */
+.profile {
+  position: absolute;
+  top: 5vh;
+}
+
 .profile-sm {
   object-fit: cover;
   width: 15vh;
   height: 15vh;
   border-radius: 50%;
+  background-color: #eeeeee50;
 }
 
 .events-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
+  width: 100%;
   max-width: 500px;
+  margin-top: 25vh;
+  margin-bottom: auto;
+}
+
+.accordion-button {
+  padding: 2vmin;
+}
+
+.day-events-container {
+  padding: 0;
+}
+
+.event-item {
   padding: 1vmin;
-  border-radius: 1vmin;
+}
+
+/* Event form */
+.profile-xs {
+  object-fit: cover;
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  background-color: #eeeeee50;
+}
+
+.form-check-input:checked {
+  background-color: #2d4059;
+  border-color: #2d4059;
 }
 
 /* Buttons */
-.btn-container {
+.bottom-btn-container {
   position: absolute;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   right: calc(10px + 1vmin);
   bottom: calc(10px + 1vmin);
+}
+
+.top-btn-container {
+  position: absolute;
   display: flex;
+  align-items: center;
+  top: 2vmin;
+  left: 2vmin;
 }
 
 .custom-btn {

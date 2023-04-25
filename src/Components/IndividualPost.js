@@ -21,7 +21,7 @@ export default function Posts() {
 
   const getSinglePost = async () => {
     const posts = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/posts/${postId}`
+      `${BACKEND_URL}/users/${USERID}/posts/postId/${postId}`
     );
     console.log(posts.data);
     setPostDetails(posts.data);
@@ -29,7 +29,7 @@ export default function Posts() {
 
   const getAllComments = async () => {
     const comments = await axios.get(
-      `${BACKEND_URL}/users/${USERID}/posts/${postId}/comments`
+      `${BACKEND_URL}/users/${USERID}/posts/postId/${postId}/comments`
     );
     setAllComments(comments.data);
   };
@@ -50,12 +50,15 @@ export default function Posts() {
 
   let listOfComments = (
     <div>
+      comments:
       {allComments.map((comments) => (
-        <Card style={{ width: "18rem", color: "black", cursor: "pointer" }}>
-          <Card.Body>
-            <Card.Title>{comments.content}</Card.Title>
-          </Card.Body>
-        </Card>
+        <div class="media">
+          <div class="media-body">
+            <p>
+              user {comments.userId} : {comments.content}
+            </p>
+          </div>
+        </div>
       ))}
     </div>
   );

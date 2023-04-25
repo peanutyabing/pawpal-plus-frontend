@@ -1,26 +1,34 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { BACKEND_URL, USERID } from "../Constants.js";
+import { useNavigate, useLocation } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
-import { calculateAge } from "../Utils.js";
+import { calculateAge, defaultPetPhoto } from "../Utils.js";
 import { PlusCircleFill } from "react-bootstrap-icons";
+import CurlyArrow from "../Images/Curly-arrow.png";
+import Reminders from "./Reminders.js";
+import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 
 export default function MyPets() {
-  const PLACEHOLDER_PIC =
-    "https://images.unsplash.com/photo-1606425271394-c3ca9aa1fc06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80";
-
   const [myPets, setMyPets] = useState([]);
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     retrievePets();
   }, []);
 
   const retrievePets = async () => {
-    const pets = await axios.get(`${BACKEND_URL}/users/${USERID}/pets/`);
-    setMyPets(pets.data);
+    try {
+      const pets = await axiosPrivate.get("/my-pets");
+      setMyPets(pets.data);
+    } catch (err) {
+      console.log(err);
+      navigate("/account/sign-in", {
+        state: { from: location },
+        replace: true,
+      });
+    }
   };
 
   const displayPets = () => {
@@ -36,11 +44,12 @@ export default function MyPets() {
       >
         <img
           className="profile-lg"
-          src={pet.imageUrl ? pet.imageUrl : PLACEHOLDER_PIC}
+          src={pet.imageUrl ? pet.imageUrl : defaultPetPhoto}
           alt={pet.name}
         />
         <Carousel.Caption>
           <h2 className="large bold">{pet.name}</h2>
+          <h3 className="medium">{pet.breed?.name}</h3>
           <h3 className="medium">{calculateAge(pet.dateOfBirth)}</h3>
         </Carousel.Caption>
       </Carousel.Item>
@@ -54,16 +63,30 @@ export default function MyPets() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* Note: authenticated users see a summary of pet profiles */}
-        <Carousel
-          activeIndex={index}
-          onSelect={handleSelect}
-          controls={myPets.length > 1 ? true : false}
-          indicators={myPets.length > 1 ? true : false}
-        >
-          {displayPets()}
-        </Carousel>
-        <div className="btn-container">
+        <Reminders />
+        {myPets.length ? (
+          <Carousel
+            activeIndex={index}
+            onSelect={handleSelect}
+            controls={myPets.length > 1}
+            indicators={myPets.length > 1}
+          >
+            {displayPets()}
+          </Carousel>
+        ) : (
+          <div className="hint">
+            <div className="large bold">
+              You don't have a pet yet! <br /> Click here to add one
+            </div>
+            <img
+              className="guide-arrow"
+              src={CurlyArrow}
+              alt="Add pet using the + button"
+            />
+          </div>
+        )}
+
+        <div className="bottom-btn-container">
           <PlusCircleFill
             className="custom-btn"
             onClick={() => {
