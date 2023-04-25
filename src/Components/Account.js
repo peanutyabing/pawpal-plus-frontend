@@ -17,11 +17,19 @@ export default function Account() {
   return (
     <div className="App">
       <header className="App-header">
+        {user?.imageUrl && (
+          <img
+            src={user.imageUrl}
+            alt={user.username}
+            className="profile-sm margin-tb-m"
+          />
+        )}
         {user?.username ? (
           <h1 className="large bold">{`Welcome, ${user?.username}!`}</h1>
         ) : (
           <h1 className="large bold">Welcome!</h1>
         )}
+
         {auth.token ? (
           <div className="option" onClick={handleSignOut}>
             Sign out
@@ -30,18 +38,27 @@ export default function Account() {
           <div
             className="option"
             onClick={() => {
-              navigate("/sign-in");
+              navigate("./sign-in");
             }}
           >
             Sign in or register
           </div>
         )}
-        {auth.token && <div className="option">Change password</div>}
         {auth.token && (
           <div
             className="option"
             onClick={() => {
-              navigate("/update-profile");
+              navigate("./change-password");
+            }}
+          >
+            Change password
+          </div>
+        )}
+        {auth.token && (
+          <div
+            className="option"
+            onClick={() => {
+              navigate("./update-profile");
             }}
           >
             Update profile

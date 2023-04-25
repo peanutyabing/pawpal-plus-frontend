@@ -8,7 +8,7 @@ export default function SignIn() {
   const { setAuth, trustDevice, setTrustDevice } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/my-pets";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -61,7 +61,7 @@ export default function SignIn() {
         <h1 className="large bold">Welcome back</h1>
         <h2 className="small">
           First time here?{" "}
-          <Link to="/sign-up" className="small">
+          <Link to="/account/sign-up" className="small">
             Sign up
           </Link>
         </h2>

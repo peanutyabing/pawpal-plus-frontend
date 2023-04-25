@@ -1,8 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { calculateAge, calculateDuration, sortEventsByDay } from "../Utils.js";
+import {
+  calculateAge,
+  getNextBirthday,
+  calculateDuration,
+  sortEventsByDay,
+  defaultPetPhoto,
+} from "../Utils.js";
 import { Accordion, Badge } from "react-bootstrap";
-import { PlusCircleFill, ArrowLeftShort } from "react-bootstrap-icons";
+import {
+  PlusCircleFill,
+  ArrowLeftShort,
+  CalendarEvent,
+} from "react-bootstrap-icons";
+import CurlyArrow from "../Images/Curly-arrow.png";
 import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 
 export default function Events() {
@@ -24,7 +35,10 @@ export default function Events() {
       setPetProfile(profile.data[0]);
     } catch (err) {
       console.log(err);
-      navigate("/sign-in", { state: { from: location }, replace: true });
+      navigate("/account/sign-in", {
+        state: { from: location },
+        replace: true,
+      });
     }
   };
 
@@ -38,7 +52,10 @@ export default function Events() {
       setPetEvents(events.data);
     } catch (err) {
       console.log(err);
-      navigate("/sign-in", { state: { from: location }, replace: true });
+      navigate("/account/sign-in", {
+        state: { from: location },
+        replace: true,
+      });
     }
   };
 
@@ -47,15 +64,24 @@ export default function Events() {
       return;
     }
     return (
-      <div className="flex-container margin-tb-m">
+      <div className="flex-container margin-tb-m profile">
         <img
           className="profile-sm margin-lr-m"
-          src={petProfile.imageUrl}
-          alt={petProfile.name}
+          src={petProfile?.imageUrl || defaultPetPhoto}
+          alt={petProfile?.name}
         />
         <div className="margin-lr-m">
-          <div className="large bold">{petProfile.name}</div>
-          <div className="medium">{calculateAge(petProfile.dateOfBirth)}</div>
+          <div className="large bold">{petProfile?.name}</div>
+          <div className="medium">
+            {petProfile?.species?.name} | {petProfile?.breed?.name}
+          </div>
+          <div className="medium flex-container">
+            <CalendarEvent />
+            <div className="margin-lr-m">
+              {getNextBirthday(petProfile?.dateOfBirth)} (
+              {calculateAge(petProfile?.dateOfBirth)})
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -65,7 +91,18 @@ export default function Events() {
     if (!petEvents) {
       return;
     } else if (petEvents.length === 0) {
-      return <div>{petProfile.name} doesn't have any activities yet!</div>;
+      return (
+        <div className="hint">
+          <div className="large bold">
+            {petProfile.name} doesn't have activities yet! <br /> Add one here
+          </div>
+          <img
+            className="guide-arrow"
+            src={CurlyArrow}
+            alt="Add an event using the + button"
+          />
+        </div>
+      );
     } else {
       const bgVariants = [
         "primary",

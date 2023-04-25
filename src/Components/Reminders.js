@@ -20,7 +20,10 @@ export default function Reminders(props) {
       setReminders(remindersRes.data);
     } catch (err) {
       console.log(err);
-      navigate("/sign-in", { state: { from: location }, replace: true });
+      navigate("/account/sign-in", {
+        state: { from: location },
+        replace: true,
+      });
     }
   };
 

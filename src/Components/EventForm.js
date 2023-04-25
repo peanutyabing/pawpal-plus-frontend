@@ -9,6 +9,7 @@ import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import Alerts from "./Alerts.js";
 import { ArrowLeftShort } from "react-bootstrap-icons";
+import { defaultPetPhoto } from "../Utils.js";
 import moment from "moment";
 
 export default function EventForm() {
@@ -48,7 +49,10 @@ export default function EventForm() {
       setPetProfile(profile.data[0]);
     } catch (err) {
       console.log(err);
-      navigate("/sign-in", { state: { from: location }, replace: true });
+      navigate("/account/sign-in", {
+        state: { from: location },
+        replace: true,
+      });
     }
   };
 
@@ -218,7 +222,7 @@ export default function EventForm() {
         <div className="flex-container margin-tb-m">
           <img
             className="profile-xs margin-lr-m"
-            src={petProfile.imageUrl}
+            src={petProfile.imageUrl || defaultPetPhoto}
             alt={petProfile.name}
           />
           <div className="x-large">{petProfile.name}'s new activity</div>
@@ -330,7 +334,7 @@ export default function EventForm() {
 
           <Form.Group className="margin-tb-m">
             {submitting ? (
-              <Button variant="light" disabled>
+              <Button variant="light" size="sm" disabled>
                 <Spinner
                   as="span"
                   animation="border"
@@ -341,7 +345,7 @@ export default function EventForm() {
                 <span className="visually-hidden">Submitting...</span>
               </Button>
             ) : (
-              <Button type="submit" variant="light">
+              <Button type="submit" size="sm" variant="light">
                 Submit
               </Button>
             )}

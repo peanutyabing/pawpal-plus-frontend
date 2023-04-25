@@ -61,7 +61,7 @@ export default function SignUp() {
       const { token } = signUpRes.data;
       setAuth({ token });
       localStorage.setItem("createdAccount", true);
-      navigate("/update-profile");
+      navigate("/account/update-profile");
     } catch (err) {
       console.log(err);
       alert(err.response.data.msg);
@@ -74,7 +74,7 @@ export default function SignUp() {
         <h1 className="large bold">Welcome</h1>
         <h2 className="small">
           Already have an account?{" "}
-          <Link to="/sign-in" className="small">
+          <Link to="/account/sign-in" className="small">
             Sign in
           </Link>
         </h2>
