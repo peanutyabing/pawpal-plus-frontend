@@ -10,13 +10,13 @@
 .App-header {
   position: relative;
   background-color: #ff5722;
-  height: 94vh;
+  min-height: 94vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  overflow: scroll;
+  padding-bottom: 6vh;
 }
 
 .App-logo-lg {
@@ -120,8 +120,8 @@ a:hover {
 
 .navbar-brand {
   margin: 0 auto;
-  padding-left: 1vmin;
-  padding-right: 1vmin;
+  padding-left: calc(4px + 1vmin);
+  padding-right: calc(4px + 1vmin);
   cursor: pointer;
 }
 
@@ -240,6 +240,7 @@ a:hover {
   max-width: 500px;
   margin-top: 25vh;
   margin-bottom: auto;
+  z-index: 99;
 }
 
 .accordion-button {
@@ -273,13 +274,19 @@ a:hover {
 }
 
 /* Event details */
-.event-photo-container {
-  width: 90vw;
+.mobile-width-container {
+  width: 96vw;
   max-width: 500px;
 }
 
 .event-photo {
   max-height: 30vh;
+}
+
+.graph-container {
+  background-color: #eeeeee;
+  border-radius: 1vmin;
+  padding: calc(10px + 1vmin);
 }
 
 /* Buttons */

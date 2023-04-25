@@ -27,14 +27,14 @@ export const getNextBirthday = (dateOfBirth) => {
   return `${day} ${month}`;
 };
 
-export const calculateDuration = (petEvent, byStartTime = true) => {
+export const calculateDuration = (event, byStartTime = true) => {
   let start;
   let end;
   if (byStartTime) {
-    start = new Date(petEvent.startTime);
-    end = new Date(petEvent.endTime);
+    start = new Date(event.startTime);
+    end = new Date(event.endTime);
   } else {
-    start = new Date(petEvent.createdAt);
+    start = new Date(event.createdAt);
     end = new Date();
   }
   const durationInMins = (end - start) / 1000 / 60;

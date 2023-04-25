@@ -8,7 +8,7 @@ import Reminders from "./Reminders.js";
 import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 
 export default function MyPets() {
-  const [myPets, setMyPets] = useState([]);
+  const [myPets, setMyPets] = useState(null);
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,27 +64,28 @@ export default function MyPets() {
     <div className="App">
       <header className="App-header">
         <Reminders />
-        {myPets.length ? (
-          <Carousel
-            activeIndex={index}
-            onSelect={handleSelect}
-            controls={myPets.length > 1}
-            indicators={myPets.length > 1}
-          >
-            {displayPets()}
-          </Carousel>
-        ) : (
-          <div className="hint">
-            <div className="large bold">
-              You don't have a pet yet! <br /> Click here to add one
+        {myPets &&
+          (myPets.length ? (
+            <Carousel
+              activeIndex={index}
+              onSelect={handleSelect}
+              controls={myPets.length > 1}
+              indicators={myPets.length > 1}
+            >
+              {displayPets()}
+            </Carousel>
+          ) : (
+            <div className="hint">
+              <div className="large bold">
+                You don't have a pet yet! <br /> Click here to add one
+              </div>
+              <img
+                className="guide-arrow"
+                src={CurlyArrow}
+                alt="Add pet using the + button"
+              />
             </div>
-            <img
-              className="guide-arrow"
-              src={CurlyArrow}
-              alt="Add pet using the + button"
-            />
-          </div>
-        )}
+          ))}
 
         <div className="bottom-btn-container">
           <PlusCircleFill

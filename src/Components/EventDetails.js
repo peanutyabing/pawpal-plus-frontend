@@ -71,7 +71,7 @@ export default function EventDetails() {
             </div>
           </div>
         )}
-        <div className="margin-tb-m event-photo-container">
+        <div className="margin-tb-m mobile-width-container">
           {event.imageUrl && (
             <img
               className="event-photo"

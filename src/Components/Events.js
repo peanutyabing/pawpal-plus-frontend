@@ -9,6 +9,7 @@ import {
 } from "../Utils.js";
 import { Accordion, Badge } from "react-bootstrap";
 import {
+  BarChartLineFill,
   PlusCircleFill,
   ArrowLeftShort,
   CalendarEvent,
@@ -26,7 +27,7 @@ export default function Events() {
   const axiosPrivate = useAxiosPrivate();
 
   const [petProfile, setPetProfile] = useState({});
-  const [petEvents, setPetEvents] = useState([]);
+  const [petEvents, setPetEvents] = useState(null);
 
   useEffect(() => {
     retrievePetProfile();
@@ -190,6 +191,12 @@ export default function Events() {
       {displayProfile()}
       {displayEvents()}
       <div className="bottom-btn-container">
+        <BarChartLineFill
+          className="custom-btn margin-tb-m"
+          onClick={() => {
+            navigate("./report");
+          }}
+        />
         <PlusCircleFill
           className="custom-btn"
           onClick={() => {
