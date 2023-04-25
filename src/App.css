@@ -133,7 +133,6 @@ a:hover {
 
 .navbar-nav > a {
   color: #ffffff;
-  /* width: 33.33%; */
   flex: 1;
   text-align: center;
   font-size: 20px;
@@ -236,8 +235,8 @@ a:hover {
 }
 
 .events-container {
-  width: 100%;
-  max-width: 500px;
+  width: 97%;
+  max-width: 530px;
   margin-top: 25vh;
   margin-bottom: auto;
   z-index: 99;
@@ -301,12 +300,12 @@ a:hover {
 
 /* Buttons */
 .bottom-btn-container {
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: center;
   right: calc(10px + 1vmin);
-  bottom: 6vh;
+  bottom: calc(5px + 6vh);
 }
 
 .top-btn-container {
