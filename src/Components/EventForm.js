@@ -269,6 +269,25 @@ export default function EventForm() {
               }}
             />
           </Form.Group>
+          {event.subcategoryId === 17 && (
+            <Form.Group className="margin-tb-m flex-container">
+              <Form.Control
+                name="data"
+                type="number"
+                value={event.data}
+                onChange={handleChange}
+                placeholder="Weight"
+              />
+              <div className="margin-lr-sm"> </div>
+              <Form.Control
+                name="unit"
+                type="text"
+                value={event.unit}
+                onChange={handleChange}
+                placeholder="Unit"
+              />
+            </Form.Group>
+          )}
           <Form.Group className="margin-tb-m">
             <Form.Control
               name="description"

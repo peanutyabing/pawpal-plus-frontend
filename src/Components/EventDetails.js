@@ -5,6 +5,7 @@ import {
   ArrowLeftShort,
   Calendar2Event,
   ExclamationCircleFill,
+  Speedometer2,
 } from "react-bootstrap-icons";
 import { defaultPetPhoto, calculateDuration } from "../Utils.js";
 import moment from "moment";
@@ -62,6 +63,14 @@ export default function EventDetails() {
             {calculateDuration(event)})
           </div>
         </div>
+        {event.data && (
+          <div className="margin-tb-m flex-container">
+            <Speedometer2 className="margin-lr-m" />
+            <div className="bold">
+              {event.data} {event.unit}
+            </div>
+          </div>
+        )}
         <div className="margin-tb-m event-photo-container">
           {event.imageUrl && (
             <img
