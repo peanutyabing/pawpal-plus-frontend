@@ -33,7 +33,14 @@ export default function Navigation() {
         >
           Account
         </Nav.Link>
-        <Nav.Link>Feed</Nav.Link>
+        <Nav.Link
+          style={{ backgroundColor: getTabColor("feed") }}
+          onClick={() => {
+            navigate("/posts");
+          }}
+        >
+          Feed
+        </Nav.Link>
         <Nav.Link
           style={{ backgroundColor: getTabColor("my-pets") }}
           onClick={() => {
