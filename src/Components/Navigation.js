@@ -1,6 +1,8 @@
 import { Navbar, Nav } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../Images/PawPal-logo-1.png";
+import { PersonCircle, Rss, ChatDotsFill } from "react-bootstrap-icons";
+import myPetsLogo from "../Images/my-pets-96.png";
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -31,15 +33,7 @@ export default function Navigation() {
             navigate("/account");
           }}
         >
-          Account
-        </Nav.Link>
-        <Nav.Link
-          style={{ backgroundColor: getTabColor("posts") }}
-          onClick={() => {
-            navigate("/posts");
-          }}
-        >
-          Feed
+          <PersonCircle size={28} />
         </Nav.Link>
         <Nav.Link
           style={{ backgroundColor: getTabColor("my-pets") }}
@@ -47,7 +41,23 @@ export default function Navigation() {
             navigate("/my-pets");
           }}
         >
-          My pets
+          <img className="navbar-logo" src={myPetsLogo} alt="My pets" />
+        </Nav.Link>
+        <Nav.Link
+          style={{ backgroundColor: getTabColor("posts") }}
+          onClick={() => {
+            navigate("/posts");
+          }}
+        >
+          <Rss size={28} />
+        </Nav.Link>
+        <Nav.Link
+          style={{ backgroundColor: getTabColor("home") }}
+          onClick={() => {
+            navigate("/home");
+          }}
+        >
+          <ChatDotsFill size={28} />
         </Nav.Link>
       </Nav>
     </Navbar>

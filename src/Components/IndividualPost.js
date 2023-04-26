@@ -59,38 +59,7 @@ export default function Posts() {
       })
       .then(getAllComments())
       .then(setNewContent(""));
-
-    // .then(changeList());
   };
-
-  // let listOfComments = (
-  //   <div>
-  //     comments:
-  //     {allComments.map((comments, index) => (
-  //       <div className="media" key={index}>
-  //         <div className="media-body">
-  //           <p>
-  //             {comments.user.username} : {comments.content}
-  //           </p>
-  //         </div>
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
-
-  // const changeList = () => {
-  //   listOfComments = (
-  //     <div>
-  //       {allComments.map((comments) => (
-  //         <Card style={{ width: "18rem", color: "black", cursor: "pointer" }}>
-  //           <Card.Body>
-  //             <Card.Title>{comments.content}</Card.Title>
-  //           </Card.Body>
-  //         </Card>
-  //       ))}
-  //     </div>
-  //   );
-  // };
 
   return (
     <div className="App">
@@ -98,18 +67,7 @@ export default function Posts() {
         {/* Note: authenticated users see a summary of pet profiles */}
         <p>Title : {postDetails.title}</p>
         <p>content : {postDetails.content}</p>
-
-        <div>
-          {/* {listOfComments} */}
-          {allComments}
-          {/* {allComments.map((comments) => (
-            <Card style={{ width: "18rem", color: "black", cursor: "pointer" }}>
-              <Card.Body>
-                <Card.Title>{comments.content}</Card.Title>
-              </Card.Body>
-            </Card>
-          ))} */}
-        </div>
+        <div>{allComments}</div>
         {user.username && (
           <Form onSubmit={addComment}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -118,7 +76,12 @@ export default function Posts() {
                 onChange={handleChange}
                 placeholder="Enter comment"
               />{" "}
-              <Button variant="primary" type="submit">
+              <Button
+                variant="light"
+                size="sm"
+                type="submit"
+                className="margin-tb-m small"
+              >
                 Comment
               </Button>
             </Form.Group>

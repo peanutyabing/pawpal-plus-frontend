@@ -21,10 +21,6 @@ export default function Posts() {
     setAllPost(posts.data);
   };
 
-  const getAllComments = async () => {
-    const comments = await axios.get(`${BACKEND_URL}/users/${USERID}/posts/`);
-  };
-
   const goToPost = (postId) => {
     navigate(`/posts/${postId}`);
   };

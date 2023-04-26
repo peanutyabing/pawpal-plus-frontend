@@ -34,8 +34,6 @@ const socket = socketIO.connect("http://localhost:3000");
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    {/* <Navigation /> */}
-
     <AuthProvider>
       <UserProvider>
         <Navigation />
