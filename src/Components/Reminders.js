@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ToastContainer, Toast } from "react-bootstrap";
+import { ToastContainer, Toast, Button } from "react-bootstrap";
 import { AlarmFill } from "react-bootstrap-icons";
 import useAxiosPrivate from "../Hooks/useAxiosPrivate.js";
 
@@ -44,7 +44,19 @@ export default function Reminders(props) {
             <AlarmFill />
           </strong>
         </Toast.Header>
-        <Toast.Body className="dark small">{reminder.content}</Toast.Body>
+        <Toast.Body className="dark small">
+          <div className="small">{reminder.content}</div>
+          <Button
+            variant="secondary"
+            size="sm"
+            className="margin-tb-sm small"
+            onClick={() => {
+              navigate(`/my-pets/${reminder.petId}/events/add-activity`);
+            }}
+          >
+            Log activity
+          </Button>
+        </Toast.Body>
       </Toast>
     ));
   };

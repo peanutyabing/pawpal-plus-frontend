@@ -1,5 +1,6 @@
 import { Navbar, Nav } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
+import logo from "../Images/PawPal-logo-1.png";
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -16,6 +17,13 @@ export default function Navigation() {
 
   return (
     <Navbar bg="dark" variant="dark" fixed="bottom">
+      <Navbar.Brand
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <img src={logo} alt="PawPal" className="App-logo-xs" />
+      </Navbar.Brand>
       <Nav>
         <Nav.Link
           style={{ backgroundColor: getTabColor("account") }}

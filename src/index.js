@@ -20,6 +20,8 @@ import AddPetExample from "./Tour/AddPetExample.js";
 import PetFormExample from "./Tour/PetFormExample.js";
 import PetExample from "./Tour/PetExample.js";
 import ChangePassword from "./Components/ChangePassword.js";
+import EventDetails from "./Components/EventDetails.js";
+import Report from "./Components/Report.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -49,9 +51,17 @@ root.render(
               />
               <Route path="/my-pets" element={<MyPets />} />
               <Route path="/my-pets/add-pet" element={<PetForm />} />
-              <Route path="/my-pets/:petId" element={<Events />} />
+              <Route path="/my-pets/:petId/events" element={<Events />} />
               <Route
-                path="/my-pets/:petId/add-activity"
+                path="/my-pets/:petId/events/:eventId"
+                element={<EventDetails />}
+              />
+              <Route
+                path="/my-pets/:petId/events/report"
+                element={<Report />}
+              />
+              <Route
+                path="/my-pets/:petId/events/add-activity"
                 element={<EventForm />}
               />
               <Route
