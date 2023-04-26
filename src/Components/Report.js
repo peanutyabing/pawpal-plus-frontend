@@ -121,7 +121,7 @@ export default function Report() {
             src={petProfile?.imageUrl || defaultPetPhoto}
             alt={petProfile?.name}
           />
-          <div className="x-large">
+          <div className="large">
             Analysis of {petProfile?.name}'s activities
           </div>
         </div>

@@ -15,7 +15,7 @@ export default function App() {
           src={logo}
           alt="PawPal"
         />
-        <h1 className="x-large xx-bold margin-tb-l">Welcome to PawPal!</h1>
+        <h1 className="x-large x-bold margin-tb-l">Welcome to PawPal!</h1>
         <div className="margin-tb-sm">
           Take a quick{" "}
           <Link to="/my-pets/add-pet-example" className="bold">
