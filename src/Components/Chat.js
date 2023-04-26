@@ -1,7 +1,6 @@
 import ChatBar from "./ChatBar";
 import ChatBody from "./ChatBody";
 import ChatFooter from "./ChatFooter";
-import "../Chat.css";
 import { useEffect, useState, useRef } from "react";
 import useUser from "../Hooks/useUser.js";
 
