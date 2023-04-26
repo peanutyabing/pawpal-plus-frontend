@@ -7,9 +7,9 @@ export default function Home({ socket }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("userName", userName);
+    // localStorage.setItem("userName", userName);
     //sends the username and socket ID to the Node.js server
-    socket.emit("newUser", { userName, socketID: socket.id });
+    // socket.emit("newUser", { userName, socketID: socket.id });
     navigate("/chat");
   };
 

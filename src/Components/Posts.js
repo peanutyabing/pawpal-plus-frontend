@@ -29,7 +29,7 @@ export default function Posts() {
     navigate(`/posts/${postId}`);
   };
 
-  const displayPets = () => {
+  const displayPosts = () => {
     return allPost.map((post) => (
       <Carousel.Item
         key={post.id}
@@ -60,7 +60,7 @@ export default function Posts() {
           controls={allPost.length > 1}
           indicators={allPost.length > 1}
         >
-          {displayPets()}
+          {displayPosts()}
         </Carousel>
 
         <div className="bottom-btn-container">

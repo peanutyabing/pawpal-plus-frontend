@@ -19,7 +19,7 @@ export default function PetExample() {
               variant="outline-light"
               size="sm"
               onClick={() => {
-                // Navigate to feed
+                navigate("/posts");
               }}
             >
               Show me more

@@ -28,8 +28,9 @@ import Chat from "./Components/Chat";
 import socketIO from "socket.io-client";
 import Home from "./Components/Home";
 import PostForm from "./Components/PostForm";
+import Lost from "./Lost.js";
 
-const socket = socketIO.connect("http://localhost:8000");
+const socket = socketIO.connect("http://localhost:3000");
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
@@ -49,14 +50,15 @@ root.render(
           <Route path="/my-pets/view-pet-example" element={<PetExample />} />
           <Route path="/account/sign-in" element={<SignIn />} />
           <Route path="/account/sign-up" element={<SignUp />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/postForm" element={<PostForm />} />
-          <Route path="/posts/:postId" element={<IndividualPost />} />
-          <Route path="/chat" element={<Chat socket={socket} />} />
-          <Route path="/home" element={<Home socket={socket} />} />
 
           <Route element={<PersistLogin />}>
             <Route path="/account" element={<Account />} />
+            <Route path="/posts" element={<Posts />} />
+            <Route path="/postForm" element={<PostForm />} />
+            <Route path="/posts/:postId" element={<IndividualPost />} />
+            <Route path="/chat" element={<Chat socket={socket} />} />
+            <Route path="/home" element={<Home socket={socket} />} />
+
             {/* Protected routes that require auth */}
             <Route element={<RequireAuth />}>
               <Route
@@ -86,7 +88,7 @@ root.render(
           </Route>
 
           {/* Catch-all for invalid URLs */}
-          {/* <Route path="*" element={}/> */}
+          <Route path="*" element={<Lost />} />
         </Routes>
       </UserProvider>
     </AuthProvider>

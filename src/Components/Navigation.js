@@ -34,7 +34,7 @@ export default function Navigation() {
           Account
         </Nav.Link>
         <Nav.Link
-          style={{ backgroundColor: getTabColor("feed") }}
+          style={{ backgroundColor: getTabColor("posts") }}
           onClick={() => {
             navigate("/posts");
           }}

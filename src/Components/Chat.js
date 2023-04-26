@@ -3,11 +3,17 @@ import ChatBody from "./ChatBody";
 import ChatFooter from "./ChatFooter";
 import "../Chat.css";
 import { useEffect, useState, useRef } from "react";
+import useUser from "../Hooks/useUser.js";
 
 export default function Chat({ socket }) {
+  const { user } = useUser();
   const [messages, setMessages] = useState([]);
   const [typingStatus, setTypingStatus] = useState("");
   const lastMessageRef = useRef(null);
+
+  useEffect(() => {
+    socket.emit("newUser", { userName: user?.username, socketID: socket.id });
+  }, [user]);
 
   useEffect(() => {
     socket.on("messageResponse", (data) => setMessages([...messages, data]));
