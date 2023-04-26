@@ -18,7 +18,6 @@ export default function UserProfileForm() {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/account";
   const [profile, setProfile] = useState({
     imageUrl: "",
     country: "",
@@ -76,7 +75,7 @@ export default function UserProfileForm() {
       setShowAlert(true);
       setAlertKey("profileUpdated");
       setTimeout(() => {
-        navigate(from, { replace: true });
+        navigate("/");
       }, 2000);
     } catch (err) {
       console.log(err);
