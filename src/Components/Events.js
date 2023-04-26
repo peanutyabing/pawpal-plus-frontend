@@ -10,7 +10,7 @@ import {
 import { Accordion, Badge } from "react-bootstrap";
 import {
   BarChartLineFill,
-  PlusCircleFill,
+  CalendarPlus,
   ArrowLeftShort,
   CalendarEvent,
   AlarmFill,
@@ -98,7 +98,8 @@ export default function Events() {
       return (
         <div className="hint">
           <div className="large bold">
-            {petProfile.name} doesn't have activities yet! <br /> Add one here
+            {petProfile.name} doesn't have activities yet! <br /> Click here to
+            add one
           </div>
           <img
             className="guide-arrow"
@@ -191,7 +192,7 @@ export default function Events() {
       {displayProfile()}
       {displayEvents()}
       <div className="bottom-btn-container">
-        <PlusCircleFill
+        <CalendarPlus
           className="custom-btn"
           onClick={() => {
             navigate("./add-activity");

@@ -304,8 +304,9 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  right: calc(10px + 1vmin);
-  bottom: calc(5px + 6vh);
+  right: 2vh;
+  bottom: 8vh;
+  cursor: pointer;
 }
 
 .top-btn-container {
@@ -314,6 +315,10 @@ a:hover {
   align-items: center;
   top: 2vmin;
   left: 2vmin;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
 }
 
 .custom-btn {
