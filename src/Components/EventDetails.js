@@ -63,7 +63,7 @@ export default function EventDetails() {
             {calculateDuration(event)})
           </div>
         </div>
-        {event.data && (
+        {event.data > 0 && (
           <div className="margin-tb-m flex-container">
             <Speedometer2 className="margin-lr-m" />
             <div className="bold">
