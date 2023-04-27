@@ -22,15 +22,8 @@ import PetExample from "./Tour/PetExample.js";
 import ChangePassword from "./Components/ChangePassword.js";
 import EventDetails from "./Components/EventDetails.js";
 import Report from "./Components/Report.js";
-import Posts from "./Components/Posts";
-import IndividualPost from "./Components/IndividualPost";
-import Chat from "./Components/Chat";
-import socketIO from "socket.io-client";
-import Home from "./Components/Home";
-import PostForm from "./Components/PostForm";
 import Lost from "./Lost.js";
 
-const socket = socketIO.connect("http://localhost:3000");
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
@@ -51,12 +44,6 @@ root.render(
 
           <Route element={<PersistLogin />}>
             <Route path="/account" element={<Account />} />
-            <Route path="/posts" element={<Posts />} />
-            <Route path="/postForm" element={<PostForm />} />
-            <Route path="/posts/:postId" element={<IndividualPost />} />
-            <Route path="/chat" element={<Chat socket={socket} />} />
-            <Route path="/home" element={<Home socket={socket} />} />
-
             {/* Protected routes that require auth */}
             <Route element={<RequireAuth />}>
               <Route

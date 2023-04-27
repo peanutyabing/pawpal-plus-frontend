@@ -19,7 +19,8 @@ export default function PetExample() {
               variant="outline-light"
               size="sm"
               onClick={() => {
-                navigate("/posts");
+                navigate("/");
+                // Placeholder for url to more features
               }}
             >
               Show me more

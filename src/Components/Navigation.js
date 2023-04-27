@@ -46,7 +46,7 @@ export default function Navigation() {
         <Nav.Link
           style={{ backgroundColor: getTabColor("posts") }}
           onClick={() => {
-            navigate("/posts");
+            navigate("/");
           }}
         >
           <Rss size={28} />
@@ -54,7 +54,7 @@ export default function Navigation() {
         <Nav.Link
           style={{ backgroundColor: getTabColor("home") }}
           onClick={() => {
-            navigate("/home");
+            navigate("/");
           }}
         >
           <ChatDotsFill size={28} />

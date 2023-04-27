@@ -199,7 +199,7 @@ a:hover {
 
 .hint {
   text-align: end;
-  margin: auto calc(20px + 2vmin) calc(20px + 1vmin) auto;
+  margin: auto calc(40px + 2vmin) calc(40px + 2vmin) auto;
 }
 
 .hint-left {
